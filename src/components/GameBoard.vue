@@ -10,12 +10,14 @@ import { CGame } from "@/classes/CGame";
 import GDefault from "@/components/gameBoards/GDefault.vue";
 import GTenRegular from "@/components/gameBoards/GTenRegular.vue";
 import GTttRegular from "@/components/gameBoards/GTttRegular.vue";
+import GDotBoxRegular from "@/components/gameBoards/GDotBoxRegular.vue";
 
 @Component({
   components: {
     GDefault,
     GTenRegular,
-    GTttRegular
+    GTttRegular,
+    GDotBoxRegular
   }
 })
 export default class GameBoard extends Vue {
