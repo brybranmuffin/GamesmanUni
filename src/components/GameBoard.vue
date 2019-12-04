@@ -10,7 +10,7 @@ import { CGame } from "@/classes/CGame";
 import GDefault from "@/components/gameBoards/GDefault.vue";
 import GTenRegular from "@/components/gameBoards/GTenRegular.vue";
 import GTttRegular from "@/components/gameBoards/GTttRegular.vue";
-import GDotBoxRegular from "@/components/gameBoards/GDotBoxRegular.vue";
+import GDnbRegular from "@/components/gameBoards/GDnbRegular.vue";
 
 @Component({
   components: {
