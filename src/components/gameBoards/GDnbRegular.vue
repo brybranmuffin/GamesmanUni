@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div id="app-game-board-dnb-regular">
+=======
+  <div id="app-game-board-dotbox-regular-GDnbRegular">
+>>>>>>> 361eb6d2bb2e82d340b674694efc50884e8fb758
     <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <g id="board">
