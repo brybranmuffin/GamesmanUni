@@ -55,7 +55,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component
-export default class GDotBoxRegular extends Vue {
+export default class GDnbRegular extends Vue {
   rowCount: number = 3;
   columnCount: number = 3;
   cellCount: number =
