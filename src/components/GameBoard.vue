@@ -17,7 +17,7 @@ import GDnbRegular from "@/components/gameBoards/GDnbRegular.vue";
     GDefault,
     GTenRegular,
     GTttRegular,
-    GDotBoxRegular
+    GDnbRegular
   }
 })
 export default class GameBoard extends Vue {
