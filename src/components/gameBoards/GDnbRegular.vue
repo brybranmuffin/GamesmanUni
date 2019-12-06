@@ -6,6 +6,12 @@
           <circle id="dot" cx="5" cy="5" r="1" />
           <use xlink:href="#dot" transform="translate(0 30)" />
           <use xlink:href="#dot" transform="translate(0 55)" />
+          <use xlink:href="#dot" transform="translate(25 0)" />
+          <use xlink:href="#dot" transform="translate(25 25)" />
+          <use xlink:href="#dot" transform="translate(25 50)" />
+          <use xlink:href="#dot" transform="translate(50 0)" />
+          <use xlink:href="#dot" transform="translate(50 25)" />
+          <use xlink:href="#dot" transform="translate(50 50)" />
         </g>
         <g id="line">
           <line x1="0" y1="0" x2="33" y2="0" stroke="black" width="2" />
