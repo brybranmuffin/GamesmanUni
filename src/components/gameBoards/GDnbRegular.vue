@@ -50,10 +50,10 @@
           <use xlink:href="#dot" transform="translate(56 56)" />
         </g>
         <g id="turn-0-token">
-          <line id="blue" x1="5" y1="5" x2="33" y2="5" />
+          <circle id="blue" cx="17" cy="17" r="3" />
         </g>
         <g id="turn-1-token">
-          <line id="red" x1="5" y1="5" x2="33" y2="5" />
+          <circle id="red" cx="17" cy="17" r="3" />
         </g>
         <circle
           id="hint"
@@ -64,10 +64,27 @@
           stroke="black"
           width="1"
         />
-        <rect id="move" x="1" y="1" width="20" height="20" />
+        <line
+          id="move0"
+          x1="5"
+          y1="5"
+          x2="33"
+          y2="5"
+          stroke="black"
+          width="1"
+        />
+        <!-- <line id="move1" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move2" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move3" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move4" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move5" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move6" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move7" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move8" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move9" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move10" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" />
+        <line id="move11" x1="5" y1="5" x2="33" y2="5" stroke="blue" width="1" /> -->
       </defs>
-      <!-- use a for loop to put lines on the board.
-      Also make dots and have the use tag for those -->
       <use xlink:href="#line0" x="0" y="0" />
       <use xlink:href="#line1" x="28" y="0" />
       <use xlink:href="#line2" x="0" y="28" />
@@ -82,9 +99,9 @@
       <use xlink:href="#line11" x="28" y="-66" transform="rotate(90)" />
       <use xlink:href="#board" x="0" y="0" />
 
-      <!-- <g v-for="line in lineCount" :key="line">
+      <g v-for="line in lineCount" :key="line">
         <use
-          v-if="boardData[line].token === 'x'"
+          v-if="boardData[line].token === '1'"
           xlink:href="#turn-0-token"
           :x="((line - 1) % 2) * 33"
           :y="Math.floor((line - 1) / 2) * 33"
@@ -103,13 +120,12 @@
           />
           <use
             :class="remoteness && 'move-pointer'"
-            @click="remoteness && runMove(line.toString())"
-            xlink:href="#move"
-            :x="((line - 1) % 2) * 33"
-            :y="Math.floor((line - 1) / 2) * 33"
+            @click="remoteness && runMove((line - 1).toString())"
+            xlink:href="#move0"
+          />
           />
         </g>
-      </g> -->
+      </g>
     </svg>
   </div>
 </template>
@@ -153,15 +169,18 @@ export default class GDnbRegular extends Vue {
   }
 
   updateBoardData(): void {
+    console.log(this.position);
     if (!this.loadingStatus) {
       this.boardData = this.initBoardData();
       for (let line: number = 1; line <= this.lineCount; line++) {
-        this.boardData[line].token = this.position[line - 1];
+        this.boardData[line].token = this.position[line];
+        console.log(this.boardData[line].token);
       }
       for (let nextMoveData of this.nextMoveDataArray) {
         this.boardData[+nextMoveData.move].hint = nextMoveData.moveValue;
       }
     }
+    console.log(this.boardData);
   }
 
   runMove(move: string): void {
