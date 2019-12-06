@@ -34,12 +34,15 @@
       <use xlink:href="#board" x="0" y="0" />
       <g v-for="cell in cellCount" :key="cell">
         <use v-if="cell === 1" />
+        <!-- the expression after the && means if row is odd (starting at index 1) -->
+        <!-- We add 11 to X to offset the row by 10 (one square) -->
         <use
           v-else-if="boardData[cell].token === 'G' && (cell - 2) % 8 < 4"
           xlink:href="#turn-0-token"
           :x="(((cell - 2) * 2) % 8) * 10 + 11"
           :y="Math.floor(((cell - 2) * 2) / 8) * 10 + 1"
         />
+        <!-- the expression after the && means if row is even -->
         <use
           v-else-if="boardData[cell].token === 'G' && (cell - 2) % 8 > 3"
           xlink:href="#turn-0-token"
@@ -60,7 +63,8 @@
         />
 
         <g>
-          <!-- for hints: fix coords to alternate -->
+          <!-- for hints: fix x to be +1 or +11 depending on odd or even rows
+          (see above) -->
           <use
             v-if="boardData[cell].hint"
             :class="'hint-' + boardData[cell].hint"
@@ -69,7 +73,7 @@
             :y="Math.floor(((cell - 2) * 2) / 8) * 10 + 1"
           />
           <!-- change runMove to have correctly formatted argument
-          not sure if cell.toString() is the correct arg for backend to process -->
+          needs "[ pos0 pos1 ]" eg: [23 31] -->
           <use
             :class="remoteness && 'move-pointer'"
             @click="remoteness && runMove(cell.toString())"
