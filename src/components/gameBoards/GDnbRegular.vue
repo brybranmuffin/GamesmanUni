@@ -1,17 +1,16 @@
 <template>
-<<<<<<< HEAD
   <div id="app-game-board-dnb-regular">
-=======
-  <div id="app-game-board-dotbox-regular-GDnbRegular">
->>>>>>> 361eb6d2bb2e82d340b674694efc50884e8fb758
     <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <g id="board">
-          <path id="board-bar" d="M1,22 L65,22" />
-          <use xlink:href="#board-bar" transform="translate(0 22)" />
-          <use xlink:href="#board-bar" transform="translate(44) rotate(90)" />
-          <use xlink:href="#board-bar" transform="translate(66) rotate(90)" />
+          <circle id="dot" cx="5" cy="5" r="1" />
+          <use xlink:href="#dot" transform="translate(0 30)" />
+          <use xlink:href="#dot" transform="translate(0 55)" />
         </g>
+        <g id="line">
+          <line x1="0" y1="0" x2="33" y2="0" stroke="black" width="2" />
+        </g>
+        <!-- then make copies horizonatlly, and vertically -->
         <g id="turn-0-token">
           <path id="cross-bar" d="M3,3 L19,19" />
           <use xlink:href="#cross-bar" transform="translate(22) rotate(90)" />
@@ -20,37 +19,40 @@
         <circle id="hint" cx="11" cy="11" r="1" />
         <rect id="move" x="1" y="1" width="20" height="20" />
       </defs>
+      <!-- use a for loop to put lines on the board.
+      Also make dots and have the use tag for those -->
       <use xlink:href="#board" x="0" y="0" />
-      <g v-for="cell in cellCount" :key="cell">
+      <use xlink:href="#line" x="0" y="0" />
+      <!-- <g v-for="line in lineCount" :key="line">
         <use
-          v-if="boardData[cell].token === 'x'"
+          v-if="boardData[line].token === 'x'"
           xlink:href="#turn-0-token"
-          :x="((cell - 1) % 3) * 22"
-          :y="Math.floor((cell - 1) / 3) * 22"
+          :x="((line - 1) % 2) * 33"
+          :y="Math.floor((line - 1) / 2) * 33"
         />
         <use
-          v-else-if="boardData[cell].token === 'o'"
+          v-else-if="boardData[line].token === 'o'"
           xlink:href="#turn-1-token"
-          :x="((cell - 1) % 3) * 22"
-          :y="Math.floor((cell - 1) / 3) * 22"
+          :x="((line - 1) % 2) * 33"
+          :y="Math.floor((line - 1) / 2) * 33"
         />
         <g v-else>
           <use
-            v-if="boardData[cell].hint"
-            :class="'hint-' + boardData[cell].hint"
+            v-if="boardData[line].hint"
+            :class="'hint-' + boardData[line].hint"
             xlink:href="#hint"
-            :x="((cell - 1) % 3) * 22"
-            :y="Math.floor((cell - 1) / 3) * 22"
+            :x="((line - 1) % 2) * 33"
+            :y="Math.floor((line - 1) / 2) * 33"
           />
           <use
             :class="remoteness && 'move-pointer'"
-            @click="remoteness && runMove(cell.toString())"
+            @click="remoteness && runMove(line.toString())"
             xlink:href="#move"
-            :x="((cell - 1) % 3) * 22"
-            :y="Math.floor((cell - 1) / 3) * 22"
+            :x="((line - 1) % 2) * 33"
+            :y="Math.floor((line - 1) / 2) * 33"
           />
         </g>
-      </g>
+      </g> -->
     </svg>
   </div>
 </template>
@@ -60,13 +62,9 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component
 export default class GDnbRegular extends Vue {
-  rowCount: number = 3;
-  columnCount: number = 3;
-  cellCount: number =
-    this.rowCount * (this.columnCount - 1) +
-    (this.rowCount - 1) * this.columnCount;
+  lineCount = 12;
   boardData: {
-    [cell: number]: { token: string; hint: string };
+    [line: number]: { token: string; hint: string };
   } = this.initBoardData();
 
   get loadingStatus() {
@@ -89,10 +87,10 @@ export default class GDnbRegular extends Vue {
     return this.$store.getters.nextMoveDataArray;
   }
 
-  initBoardData(): { [cell: number]: { token: string; hint: string } } {
-    let boardData: { [cell: number]: { token: string; hint: string } } = {};
-    for (let cell: number = 1; cell <= this.cellCount; cell++) {
-      boardData[cell] = { token: "", hint: "" };
+  initBoardData(): { [line: number]: { token: string; hint: string } } {
+    let boardData: { [line: number]: { token: string; hint: string } } = {};
+    for (let line: number = 1; line <= this.lineCount; line++) {
+      boardData[line] = { token: "", hint: "" };
     }
     return boardData;
   }
@@ -100,8 +98,8 @@ export default class GDnbRegular extends Vue {
   updateBoardData(): void {
     if (!this.loadingStatus) {
       this.boardData = this.initBoardData();
-      for (let cell: number = 1; cell <= this.cellCount; cell++) {
-        this.boardData[cell].token = this.position[cell - 1];
+      for (let line: number = 1; line <= this.lineCount; line++) {
+        this.boardData[line].token = this.position[line - 1];
       }
       for (let nextMoveData of this.nextMoveDataArray) {
         this.boardData[+nextMoveData.move].hint = nextMoveData.moveValue;
