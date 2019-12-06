@@ -16,7 +16,7 @@
             stroke="black"
             width="0.5"
           />
-          <use xlink:hrer="#line" transform="(0" 30) />
+          <use xlink:hrer="#line" transform="(0 30)" />
           <!-- </g> -->
           <circle id="dot" cx="5" cy="5" r="1" />
           <use xlink:href="#dot" transform="translate(0 28)" />
@@ -30,8 +30,8 @@
         </g>
         <!-- then make copies horizonatlly, and vertically -->
         <g id="turn-0-token">
-          <path id="cross-bar" d="M3,3 L19,19" />
-          <use xlink:href="#cross-bar" transform="translate(22) rotate(90)" />
+          <path id="blue" d="M3,3 L19,19" />
+          <use xlink:href="#blue" transform="translate(22) rotate(90)" />
         </g>
         <circle id="turn-1-token" cx="11" cy="11" r="8" />
         <circle id="hint" cx="11" cy="11" r="1" />
@@ -39,8 +39,9 @@
       </defs>
       <!-- use a for loop to put lines on the board.
       Also make dots and have the use tag for those -->
+      <use xlink:hrer="#line" transform="(0 30)" />
+      <use xlink:href="#line" x="0" y="0" />
       <use xlink:href="#board" x="0" y="0" />
-      <!-- <use xlink:href="#line" x="0" y="0" /> -->
       <!-- <g v-for="line in lineCount" :key="line">
         <use
           v-if="boardData[line].token === 'x'"
