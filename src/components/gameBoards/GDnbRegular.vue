@@ -14,7 +14,7 @@
           <use xlink:href="#dot" transform="translate(50 50)" />
         </g>
         <g id="line">
-          <line x1="0" y1="0" x2="33" y2="0" stroke="black" width="2" />
+          <line x1="0" y1="0" x2="25" y2="0" stroke="black" width="2" />
         </g>
         <!-- then make copies horizonatlly, and vertically -->
         <g id="turn-0-token">
