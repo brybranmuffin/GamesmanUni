@@ -2,22 +2,43 @@
   <div id="app-game-board-dnb-regular">
     <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <g id="line">
+        <g id="line0">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line1">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line2">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line3">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line4">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line5">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line6">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line7">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line8">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line9">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line10">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
+        <g id="line11">
           <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
         </g>
         <g id="board">
-          <!-- <g id="line"> -->
-          <!-- <line
-            id="line"
-            x1="5"
-            y1="5"
-            x2="33"
-            y2="5"
-            stroke="black"
-            width="0.5"
-          /> -->
-          <!-- <use xlink:hrer="#line" transform="(0 30)" /> -->
-          <!-- </g> -->
           <circle id="dot" cx="5" cy="5" r="1" />
           <use xlink:href="#dot" transform="translate(0 28)" />
           <use xlink:href="#dot" transform="translate(0 56)" />
@@ -28,20 +49,39 @@
           <use xlink:href="#dot" transform="translate(56 28)" />
           <use xlink:href="#dot" transform="translate(56 56)" />
         </g>
-        <!-- then make copies horizonatlly, and vertically -->
         <g id="turn-0-token">
-          <path id="blue" d="M3,3 L19,19" />
-          <use xlink:href="#blue" transform="translate(22) rotate(90)" />
+          <line id="blue" x1="5" y1="5" x2="33" y2="5" />
         </g>
-        <circle id="turn-1-token" cx="11" cy="11" r="8" />
-        <circle id="hint" cx="11" cy="11" r="1" />
+        <g id="turn-1-token">
+          <line id="red" x1="5" y1="5" x2="33" y2="5" />
+        </g>
+        <circle
+          id="hint"
+          x1="5"
+          y1="5"
+          x2="33"
+          y2="5"
+          stroke="black"
+          width="1"
+        />
         <rect id="move" x="1" y="1" width="20" height="20" />
       </defs>
       <!-- use a for loop to put lines on the board.
       Also make dots and have the use tag for those -->
-      <use xlink:hrer="#line" transform="(0 60)" />
-      <use xlink:href="#line" x="0" y="0" />
+      <use xlink:href="#line0" x="0" y="0" />
+      <use xlink:href="#line1" x="28" y="0" />
+      <use xlink:href="#line2" x="0" y="28" />
+      <use xlink:href="#line3" x="28" y="28" />
+      <use xlink:href="#line4" x="0" y="56" />
+      <use xlink:href="#line5" x="28" y="56" />
+      <use xlink:href="#line6" x="0" y="-10" transform="rotate(90)" />
+      <use xlink:href="#line7" x="28" y="-10" transform="rotate(90)" />
+      <use xlink:href="#line8" x="0" y="-38" transform="rotate(90)" />
+      <use xlink:href="#line9" x="28" y="-38" transform="rotate(90)" />
+      <use xlink:href="#line10" x="0" y="-66" transform="rotate(90)" />
+      <use xlink:href="#line11" x="28" y="-66" transform="rotate(90)" />
       <use xlink:href="#board" x="0" y="0" />
+
       <!-- <g v-for="line in lineCount" :key="line">
         <use
           v-if="boardData[line].token === 'x'"
@@ -60,8 +100,6 @@
             v-if="boardData[line].hint"
             :class="'hint-' + boardData[line].hint"
             xlink:href="#hint"
-            :x="((line - 1) % 2) * 33"
-            :y="Math.floor((line - 1) / 2) * 33"
           />
           <use
             :class="remoteness && 'move-pointer'"
