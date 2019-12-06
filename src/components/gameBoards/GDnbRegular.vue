@@ -2,19 +2,31 @@
   <div id="app-game-board-dnb-regular">
     <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <!-- <g id="line">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1"/>
+        </g> -->
         <g id="board">
+          <!-- <g id="line"> -->
+          <line
+            id="line"
+            x1="5"
+            y1="5"
+            x2="33"
+            y2="5"
+            stroke="black"
+            width="0.5"
+          />
+          <use xlink:hrer="#line" transform="(0" 30) />
+          <!-- </g> -->
           <circle id="dot" cx="5" cy="5" r="1" />
-          <use xlink:href="#dot" transform="translate(0 25)" />
-          <use xlink:href="#dot" transform="translate(0 50)" />
-          <use xlink:href="#dot" transform="translate(25 0)" />
-          <use xlink:href="#dot" transform="translate(25 25)" />
-          <use xlink:href="#dot" transform="translate(25 50)" />
-          <use xlink:href="#dot" transform="translate(50 0)" />
-          <use xlink:href="#dot" transform="translate(50 25)" />
-          <use xlink:href="#dot" transform="translate(50 50)" />
-        </g>
-        <g id="line">
-          <line x1="0" y1="0" x2="25" y2="0" stroke="black" width="2" />
+          <use xlink:href="#dot" transform="translate(0 28)" />
+          <use xlink:href="#dot" transform="translate(0 56)" />
+          <use xlink:href="#dot" transform="translate(28 0)" />
+          <use xlink:href="#dot" transform="translate(28 28)" />
+          <use xlink:href="#dot" transform="translate(28 56)" />
+          <use xlink:href="#dot" transform="translate(56 0)" />
+          <use xlink:href="#dot" transform="translate(56 28)" />
+          <use xlink:href="#dot" transform="translate(56 56)" />
         </g>
         <!-- then make copies horizonatlly, and vertically -->
         <g id="turn-0-token">
@@ -28,7 +40,7 @@
       <!-- use a for loop to put lines on the board.
       Also make dots and have the use tag for those -->
       <use xlink:href="#board" x="0" y="0" />
-      <use xlink:href="#line" x="0" y="0" />
+      <!-- <use xlink:href="#line" x="0" y="0" /> -->
       <!-- <g v-for="line in lineCount" :key="line">
         <use
           v-if="boardData[line].token === 'x'"
