@@ -2,12 +2,12 @@
   <div id="app-game-board-dnb-regular">
     <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- <g id="line">
-          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1"/>
-        </g> -->
+        <g id="line">
+          <line x1="5" y1="5" x2="33" y2="5" stroke="black" width="1" />
+        </g>
         <g id="board">
           <!-- <g id="line"> -->
-          <line
+          <!-- <line
             id="line"
             x1="5"
             y1="5"
@@ -15,8 +15,8 @@
             y2="5"
             stroke="black"
             width="0.5"
-          />
-          <use xlink:hrer="#line" transform="(0 30)" />
+          /> -->
+          <!-- <use xlink:hrer="#line" transform="(0 30)" /> -->
           <!-- </g> -->
           <circle id="dot" cx="5" cy="5" r="1" />
           <use xlink:href="#dot" transform="translate(0 28)" />
@@ -39,7 +39,7 @@
       </defs>
       <!-- use a for loop to put lines on the board.
       Also make dots and have the use tag for those -->
-      <use xlink:hrer="#line" transform="(0 30)" />
+      <use xlink:hrer="#line" transform="(0 60)" />
       <use xlink:href="#line" x="0" y="0" />
       <use xlink:href="#board" x="0" y="0" />
       <!-- <g v-for="line in lineCount" :key="line">
