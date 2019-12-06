@@ -4,8 +4,8 @@
       <defs>
         <g id="board">
           <circle id="dot" cx="5" cy="5" r="1" />
-          <use xlink:href="#dot" transform="translate(0 30)" />
-          <use xlink:href="#dot" transform="translate(0 55)" />
+          <use xlink:href="#dot" transform="translate(0 25)" />
+          <use xlink:href="#dot" transform="translate(0 50)" />
           <use xlink:href="#dot" transform="translate(25 0)" />
           <use xlink:href="#dot" transform="translate(25 25)" />
           <use xlink:href="#dot" transform="translate(25 50)" />
