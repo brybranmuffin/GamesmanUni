@@ -119,6 +119,11 @@ export default new Vuex.Store({
         .getGame()
         .getOptions()
         .getAnimationDuration(),
+    pvcMode: state =>
+      state.app
+        .getGame()
+        .getOptions()
+        .getPvcMode(),
 
     // CRound.ts
     roundNumber: state =>
@@ -283,6 +288,12 @@ export default new Vuex.Store({
         .getOptions()
         .setAnimationDuration(animationDuration);
     },
+    pvcMode(state, pvcMode: boolean): void {
+      state.app
+        .getGame()
+        .getOptions()
+        .setPvcMode(pvcMode);
+    },
 
     // CRound.ts
     roundNumber(state, roundNumber: number): void {
@@ -400,6 +411,21 @@ export default new Vuex.Store({
       commit("loadingStatus", true);
       commit("move", move);
       success = await state.app.getGame().runMove();
+      if (
+        state.app
+          .getGame()
+          .getRound()
+          .getTurnId() === 1
+      ) {
+        commit(
+          "move",
+          state.app
+            .getGame()
+            .getRound()
+            .getNextMoveDataArray()[0].move
+        );
+        success = await state.app.getGame().runMove();
+      }
       commit("loadingStatus", false);
       return success;
     },

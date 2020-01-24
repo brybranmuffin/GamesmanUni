@@ -7,6 +7,7 @@ export interface IOptions {
   getHintVisibility(): boolean;
   getDeltaRemotenessVisibility(): boolean;
   getAnimationDuration(): number;
+  getPvcMode(): boolean;
 
   setGameInstructionVisibility(gameInstructionVisiblity: boolean): void;
   setGameOptionsVisibility(gameOptionsVisiblity: boolean): void;
@@ -16,4 +17,5 @@ export interface IOptions {
   setHintVisibility(hintVisiblity: boolean): void;
   setDeltaRemotenessVisibility(deltaRemotenessVisiblity: boolean): void;
   setAnimationDuration(animationDuration: number): void;
+  setPvcMode(getPvcMode: boolean): void;
 }

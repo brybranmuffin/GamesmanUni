@@ -1,11 +1,6 @@
 <template>
   <div id="app-game-options">
-    <button
-      id="app-game-options-button"
-      @click="options.setGameOptionsVisibility(true)"
-    >
-      ⚙️
-    </button>
+    <button id="app-game-options-button" @click="options.setGameOptionsVisibility(true)">⚙️</button>
     <PopupWindow
       id="app-game-options-popup"
       v-if="options.getGameOptionsVisibility()"
@@ -18,27 +13,36 @@
           ({{ game.getRound().getVariantDescription() }})
         </h2>
         <h3>Game Options</h3>
-        <div id="app-game-option-show-hide-container">
-          <h4 id="app-game-option-show-hide-title">Show/Hide...</h4>
-          <div id="app-game-option-clock" class="app-game-option">
-            <input type="checkbox" v-model="clockVisibility" />
-            <label for="checkbox">Clock</label>
+        <div id="app-game-option-containers">
+          <div id="app-game-option-show-hide-container">
+            <h4 id="app-game-option-show-hide-title">Show/Hide...</h4>
+            <div id="app-game-option-clock" class="app-game-option">
+              <input type="checkbox" v-model="clockVisibility" />
+              <label for="checkbox">Clock</label>
+            </div>
+            <div id="app-game-option-vvh" class="app-game-option">
+              <input type="checkbox" v-model="vvhVisibility" />
+              <label for="checkbox">Visual Value History</label>
+            </div>
+            <div id="app-game-option-next-moves" class="app-game-option">
+              <input type="checkbox" v-model="nextMovesVisibility" />
+              <label for="checkbox">Next Moves</label>
+            </div>
+            <div id="app-game-option-hint" class="app-game-option">
+              <input type="checkbox" v-model="hintVisibility" />
+              <label for="checkbox">Hint</label>
+            </div>
+            <div id="app-game-option-delta-remoteness" class="app-game-option">
+              <input type="checkbox" v-model="deltaRemotenessVisibility" />
+              <label for="checkbox">Delta Remoteness</label>
+            </div>
           </div>
-          <div id="app-game-option-vvh" class="app-game-option">
-            <input type="checkbox" v-model="vvhVisibility" />
-            <label for="checkbox">Visual Value History</label>
-          </div>
-          <div id="app-game-option-next-moves" class="app-game-option">
-            <input type="checkbox" v-model="nextMovesVisibility" />
-            <label for="checkbox">Next Moves</label>
-          </div>
-          <div id="app-game-option-hint" class="app-game-option">
-            <input type="checkbox" v-model="hintVisibility" />
-            <label for="checkbox">Hint</label>
-          </div>
-          <div id="app-game-option-delta-remoteness" class="app-game-option">
-            <input type="checkbox" v-model="deltaRemotenessVisibility" />
-            <label for="checkbox">Delta Remoteness</label>
+          <div id="app-game-option-game-mode-container">
+            <h4 id="app-game-option-game-mode-title">Game Mode</h4>
+            <div id="app-game-mode">
+              <input type="checkbox" v-model="pvcMode" />
+              <label for="checkbox">Player vs. Computer</label>
+            </div>
           </div>
         </div>
       </div>
@@ -65,6 +69,7 @@ export default class GameOptions extends Vue {
   hintVisibility: boolean = this.options.getHintVisibility();
   deltaRemotenessVisibility: boolean = this.options.getDeltaRemotenessVisibility();
   animationDuration: number = this.options.getAnimationDuration();
+  pvcMode: boolean = false;
 
   get game(): CGame {
     return this.$store.getters.game;
@@ -94,6 +99,13 @@ export default class GameOptions extends Vue {
 </script>
 
 <style scoped lang="scss">
+app-game-option-containers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20%;
+}
+
 #app-game-option-show-hide-container {
   align-content: center;
   align-items: flex-start;
@@ -101,10 +113,8 @@ export default class GameOptions extends Vue {
   border-radius: 0.25em;
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0.25em;
   padding: 0.25em;
-  width: 15em;
   .app-game-option {
     input {
       margin-right: 1em;

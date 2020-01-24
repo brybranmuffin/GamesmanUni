@@ -9,6 +9,7 @@ export class COptions implements IOptions {
   private hintVisibility: boolean;
   private deltaRemotenessVisibility: boolean;
   private animationDuration: number;
+  private pvcMode: boolean;
 
   constructor() {
     this.gameInstructionVisibility = require("@/datas/defaults.json").gameInstructionVisibility;
@@ -19,6 +20,7 @@ export class COptions implements IOptions {
     this.hintVisibility = require("@/datas/defaults.json").hintVisibility;
     this.deltaRemotenessVisibility = require("@/datas/defaults.json").deltaRemotenessVisibility;
     this.animationDuration = require("@/datas/defaults.json").animationDuration;
+    this.pvcMode = false;
   }
 
   getGameInstructionVisibility(): boolean {
@@ -53,6 +55,10 @@ export class COptions implements IOptions {
     return this.animationDuration;
   }
 
+  getPvcMode(): boolean {
+    return this.pvcMode;
+  }
+
   setGameInstructionVisibility(gameInstructionVisibility: boolean): void {
     this.gameInstructionVisibility = gameInstructionVisibility;
   }
@@ -83,5 +89,9 @@ export class COptions implements IOptions {
 
   setAnimationDuration(animationDuration: number): void {
     this.animationDuration = animationDuration;
+  }
+
+  setPvcMode(pvcMode: boolean): void {
+    this.pvcMode = this.pvcMode;
   }
 }
