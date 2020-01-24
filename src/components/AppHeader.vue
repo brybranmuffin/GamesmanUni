@@ -5,25 +5,24 @@
         id="app-header-logo"
         alt="Gamesman Logo"
         src="@/assets/LApp.png"
-        width="150em"
-        height="150em"
+        importance="high"
+        loading="eager"
+        decoding="sync"
       />
     </router-link>
 
     <h1 id="app-header-title">GamesmanUni</h1>
 
     <nav id="app-header-nav">
-      <router-link class="c-link-router" to="/">Home</router-link>|
-      <router-link class="c-link-router" to="/games">Games</router-link>|
-      <router-link class="c-link-router" to="/about">About</router-link>|
+      <router-link class="c-link-router" to="/">Home</router-link> |
+      <router-link class="c-link-router" to="/games">Games</router-link> |
+      <router-link class="c-link-router" to="/about">About</router-link> |
       <router-link class="c-link-router" to="/updates">Updates</router-link>
     </nav>
 
     <div id="app-header-setting">
       <div id="app-header-setting-theme" class="c-dropdown">
-        <div class="c-dropdown-selection">
-          {{ themeDictionary.get(theme) }} Theme ▼
-        </div>
+        <div class="c-dropdown-selection">{{ themeDictionary.get(theme) }} Theme ▼</div>
         <div class="c-dropdown-menu">
           <div
             class="c-dropdown-menu-choice"
@@ -31,16 +30,12 @@
             :key="key"
             :style="key === theme && { background: 'var(--themeColor)' }"
             @click="changeTheme(key)"
-          >
-            {{ themeDictionary.get(key) }}
-          </div>
+          >{{ themeDictionary.get(key) }}</div>
         </div>
       </div>
 
       <div id="app-header-setting-layout" class="c-dropdown">
-        <div class="c-dropdown-selection">
-          {{ layoutDictionary.get(layout) }} Layout ▼
-        </div>
+        <div class="c-dropdown-selection">{{ layoutDictionary.get(layout) }} Layout ▼</div>
         <div class="c-dropdown-menu">
           <div
             class="c-dropdown-menu-choice"
@@ -48,16 +43,12 @@
             :key="key"
             :style="key === layout && { background: 'var(--themeColor)' }"
             @click="changeLayout(key)"
-          >
-            {{ layoutDictionary.get(key) }}
-          </div>
+          >{{ layoutDictionary.get(key) }}</div>
         </div>
       </div>
 
       <div id="app-header-setting-language" class="c-dropdown">
-        <div class="c-dropdown-selection">
-          {{ languageDictionary.get(language) }} ▼
-        </div>
+        <div class="c-dropdown-selection">{{ languageDictionary.get(language) }} ▼</div>
         <div class="c-dropdown-menu">
           <div
             class="c-dropdown-menu-choice"
@@ -65,9 +56,7 @@
             :key="key"
             :style="key === language && { background: 'var(--themeColor)' }"
             @click="changeLanguage(key)"
-          >
-            {{ languageDictionary.get(key) }}
-          </div>
+          >{{ languageDictionary.get(key) }}</div>
         </div>
       </div>
     </div>
@@ -126,3 +115,10 @@ export default class AppHeader extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#app-header-logo {
+  height: min(10em, 90%);
+  width: min(10em, 90%);
+}
+</style>

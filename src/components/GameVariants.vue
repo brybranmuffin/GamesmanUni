@@ -97,7 +97,7 @@ export default class GameVariants extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 0 20%;
+  padding: 0 15vw;
 }
 
 .app-game-variants-variant {

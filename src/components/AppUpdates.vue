@@ -4,7 +4,8 @@
     <div id="app-updates-warning">
       If latest version listed here does not match
       <code>GamesmanUniGUI</code> version in footer, new content is available.
-      Please try refreshing the page ( <code>ctrl/command + r</code>) to get
+      Please try refreshing the page (
+      <code>ctrl/command + r</code>) to get
       latest patches and updates.
       <br />
       <br />All datetimes below are in UTC.
@@ -17,20 +18,15 @@
       target="_blank"
       rel="noreferrer"
     >
-      <div class="app-updates-commit-date">
-        {{ latestCommitDateArray[n - 1] }}
-      </div>
-      <div class="app-updates-commit-message">
-        {{ latestCommitMessageArray[n - 1] }}
-      </div>
+      <div class="app-updates-commit-date">{{ latestCommitDateArray[n - 1] }}</div>
+      <div class="app-updates-commit-message">{{ latestCommitMessageArray[n - 1] }}</div>
     </a>
     <a
       id="app-updates-more"
       href="https://github.com/GamesCrafters/GamesmanUni/commits/master"
       target="_blank"
       rel="noreferrer"
-      >For complete update history...</a
-    >
+    >For complete update history...</a>
   </div>
 </template>
 
@@ -67,7 +63,7 @@ export default class AppUpdates extends Vue {
   border-radius: 0.25em;
   font-style: italic;
   line-height: 1.5em;
-  margin: 0 20%;
+  margin: 0 15vw;
   padding: 2em;
 }
 
@@ -77,7 +73,7 @@ export default class AppUpdates extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 20%;
+  margin: 0 15vw;
   padding: 0 0.25em;
   text-decoration: none;
   > * {
@@ -107,7 +103,7 @@ export default class AppUpdates extends Vue {
   font-style: italic;
   font-weight: normal;
   line-height: 1.5em;
-  margin: 0 20%;
+  margin: 0 15vw;
   padding: 2em;
   text-decoration: none;
 }

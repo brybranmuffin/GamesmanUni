@@ -1,99 +1,80 @@
-* {
-  color: var(--primaryColor);
+@mixin c-border(
+  $color: var(--themeColor),
+  $radius: 0.5rem,
+  $style: solid,
+  $width: 0.04rem
+) {
+  border: $width $style $color;
+  border-radius: $radius;
+}
+
+@mixin c-color(
+  $background: var(--backgroundColor),
+  $foreground: var(--primaryColor)
+) {
+  background-color: $background;
+  color: $foreground;
+}
+
+@mixin c-flex-box(
+  $flexDirection: row,
+  $flexWrap: nowrap,
+  $justifyContent: flex-start,
+  $alignItems: stretch,
+  $alignContent: stretch
+) {
+  display: flex;
+  flex-direction: $flexDirection;
+  flex-wrap: $flexWrap;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  align-content: $alignContent;
+}
+
+@mixin c-flex-item($flexGrow: 0, $flexShrink: 1, $flexBasis: auto) {
+  flex-grow: $flexGrow;
+  flex-shrink: $flexShrink;
+  flex-basis: $flexBasis;
+}
+
+@mixin c-text($size: 1rem, $weight: normal, $height: 1rem, $align: center) {
   font: var(--font);
-  text-align: center;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+  text-align: $align;
+}
+
+* {
+  @include c-color();
+  @include c-text();
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background-color: var(--backgroundColor);
-  padding: 0 5%;
+  @include c-text(100%);
 }
 
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h3 {
-  font-size: 1.17em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h4 {
-  font-size: 1em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h5 {
-  font-size: 0.83em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h6 {
-  font-size: 0.75em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-p {
-  font-size: 1em;
-  line-height: 2em;
-  padding: 0 20%;
-  text-align: justify;
-  &::first-line {
-    text-indent: 4em;
+a {
+  @include c-text($weight: bold);
+  > code {
+    @include c-text($weight: bold);
   }
 }
 
 b {
-  font-weight: bold;
-}
-
-a {
-  padding-left: 0.25em;
-  padding-right: 0.25em;
-  &:link {
-    font-weight: bold;
-  }
-}
-
-nav {
-  padding: 0.25em;
-  margin: 0.25em;
-}
-
-code {
-  border: 0.04em solid var(--neutralColor);
-  font: var(--monoFont);
-  padding-left: 0.25em;
-  padding-right: 0.25em;
+  @include c-text($weight: bold);
 }
 
 button {
-  background-color: var(--backgroundColor);
-  border: 0.1em solid var(--neutralColor);
-  border-radius: 1em;
+  @include c-border();
   cursor: pointer;
+  margin: 0.5rem;
+  padding: 0.5rem;
   text-decoration: none;
-  transition: all 0.3s ease-out;
+  transition: all 0.5s ease-out;
   &:disabled {
-    background-color: var(--backgroundColor);
     cursor: auto;
     opacity: 0.5;
     &:hover {
@@ -108,17 +89,134 @@ button {
   }
 }
 
-.c-divider {
-  border: 0.03em dotted;
-  margin: 0.5em;
+code {
+  @include c-border();
+  font: var(--monoFont);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
-.c-link-router {
-  color: var(--primaryColor);
-  font-weight: bold;
-  padding-right: 0.5em;
-  &.router-link-exact-active {
-    color: var(--themeColor);
+h1 {
+  @include c-text(2rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+h2 {
+  @include c-text(1.5rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+h3 {
+  @include c-text(1.17rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+h4 {
+  @include c-text(1rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+h5 {
+  @include c-text(0.83rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+h6 {
+  @include c-text(0.75rem, bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+hr {
+  border: none;
+  border-top: 0.05rem dotted;
+  border-bottom: 0;
+  height: 10e-10rem;
+  margin: 1rem auto;
+}
+
+nav {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+p {
+  @include c-text(1rem, normal, 2rem, justify);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  &::first-line {
+    text-indent: 2rem;
+  }
+}
+
+select {
+  // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_custom_select
+  /*the container must be positioned relative:*/
+  .custom-select {
+    position: relative;
+    font-family: Arial;
+  }
+
+  .custom-select select {
+    display: none; /*hide original SELECT element:*/
+  }
+
+  .select-selected {
+    background-color: DodgerBlue;
+  }
+
+  /*style the arrow inside the select element:*/
+  .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+  }
+
+  /*style the items (options), including the selected item:*/
+  .select-items div,
+  .select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /*style items (options):*/
+  .select-items {
+    position: absolute;
+    background-color: DodgerBlue;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    display: none;
+  }
+
+  .select-items div:hover,
+  .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -127,60 +225,68 @@ button {
   * {
     text-align: left;
   }
+  &:active,
+  &:hover {
+    .c-dropdown-selection {
+      background-color: var(--primaryColor);
+      color: var(--backgroundColor);
+    }
+    .c-dropdown-menu {
+      display: block;
+    }
+  }
   .c-dropdown-selection {
     font-weight: bold;
-    padding: 0.25em 0.5em 0.25em 0.5em;
+    padding: 0.5rem;
   }
   .c-dropdown-menu {
     border: 0em;
-    background-color: var(--neutralColor);
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
     display: none;
     padding: 0em;
     position: absolute;
     z-index: 1;
   }
   .c-dropdown-menu-choice {
-    padding: 0.25em 0.5em;
-    &:hover,
-    &:active {
-      background-color: var(--themeColor);
+    padding: 0.5rem 0.5em;
+    &:active,
+    &:hover {
+      background-color: var(--primaryColor);
+      color: var(--backgroundColor);
     }
   }
-  &:hover,
-  &:active {
-    .c-dropdown-selection {
-      background-color: var(--themeColor);
-    }
-    .c-dropdown-menu {
-      display: block;
-    }
+}
+
+.c-link-router {
+  @include c-text($weight: bold);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  &.router-link-exact-active {
+    color: var(--themeColor);
   }
 }
 
 .c-turn-0 {
-  color: var(--turn0Color);
+  @include c-color(var(--backgroundColor), var(--turn0Color));
 }
 
 .c-turn-1 {
-  color: var(--turn1Color);
+  @include c-color(var(--backgroundColor), var(--turn1Color));
 }
 
 .c-win {
-  color: #ffffff;
-  background-color: var(--winColor);
+  @include c-color(var(--winColor), white);
 }
 
 .c-draw {
-  color: #000000;
-  background-color: var(--drawColor);
+  @include c-color(var(--drawColor), black);
 }
 
 .c-tie {
-  color: #000000;
-  background-color: var(--tieColor);
+  @include c-color((var(--tieColor)), black);
 }
 
 .c-lose {
-  color: #ffffff;
-  background-color: var(--loseColor);
+  @include c-color((var(--loseColor)), white);
 }
