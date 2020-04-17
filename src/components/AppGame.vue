@@ -1,9 +1,7 @@
 <template>
   <div id="app-game">
     <div id="app-game-header">
-      <h2 id="app-game-title">
-        {{ game.getName() }}
-      </h2>
+      <h2 id="app-game-title">{{ game.getName() }}</h2>
     </div>
     <div id="app-game-body">
       <div id="app-game-body-main">
@@ -20,35 +18,37 @@
         <div id="app-game-body-main-results">
           <template v-if="game.getRound().getRemoteness() == 0">
             <p>
-            Game over.
-            <template v-if="game.getRound().getPositionValue() == 'lose'">
-              <template v-if="game.getRound().getRoundNumber() % 2 == 0">
-                <!-- Computer's turn -->
-                🎉 You won!
+              Game over.
+              <template v-if="game.getRound().getPositionValue() == 'lose'">
+                <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                  <!-- Computer's turn -->
+                  🎉 You won!
+                </template>
+                <template v-else>
+                  <!-- The player's turn -->
+                  🤖 The computer won.
+                </template>
               </template>
-              <template v-else> 
-                <!-- The player's turn -->
-                🤖 The computer won.
+              <template v-else-if="game.getRound().getPositionValue() == 'win'">
+                <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                  <!-- Computer's turn -->
+                  🤖 The computer won.
+                </template>
+                <template v-else>
+                  <!-- The player's turn -->
+                  🎉 You won!
+                </template>
               </template>
-            </template>
-            <template v-else-if="game.getRound().getPositionValue() == 'win'">
-              <template v-if="game.getRound().getRoundNumber() % 2 == 0">
-                <!-- Computer's turn -->
-                🤖 The computer won.
-              </template>
-              <template v-else> 
-                <!-- The player's turn -->
-                🎉 You won!
-              </template>
-            </template>
-            <template v-else-if="game.getRound().getPositionValue() == 'tie'">
-                👌 It's a tie!
-              </template>
-              <template v-else>
-                👌 It's a draw!
-              </template>
+              <template v-else-if="game.getRound().getPositionValue() == 'tie'"
+                >👌 It's a tie!</template
+              >
+              <template v-else>👌 It's a draw!</template>
             </p>
-            <p>You made {{ Math.floor((game.getRound().getRoundNumber() - 1) / 2) }} moves.</p>
+            <p>
+              You made
+              {{ Math.floor((game.getRound().getRoundNumber() - 1) / 2) }}
+              moves.
+            </p>
           </template>
           <template v-else>
             <p>The game's not wrapped up yet... Who'll win? 🤔</p>
@@ -195,7 +195,6 @@ export default class AppGame extends Vue {
 }
 
 #app-game-title {
-  
 }
 
 #app-game-body {

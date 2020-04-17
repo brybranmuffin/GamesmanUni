@@ -37,7 +37,7 @@
             :style="{
               opacity: deltaRemotenessVisibility
                 ? boardData[cell].hintOpacity
-                : 1,
+                : 1
             }"
             xlink:href="#hint"
             :x="((cell - 1) % 3) * 22"
@@ -134,7 +134,7 @@ export default class GTttRegular extends Vue {
         Object.assign(this.boardData[+nextMoveData.move[4] + 1], {
           move: nextMoveData.move,
           hint: nextMoveData.moveValue,
-          hintOpacity: nextMoveData.moveValueOpacity,
+          hintOpacity: nextMoveData.moveValueOpacity
         });
       }
     }

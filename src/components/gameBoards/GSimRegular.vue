@@ -55,7 +55,7 @@ export default class GSimRegular extends Vue {
     index3: "",
     index4: "",
     color: "",
-    idOfLine: "",
+    idOfLine: ""
   };
   onMouseLeave() {
     this.topLineInfo = {
@@ -64,7 +64,7 @@ export default class GSimRegular extends Vue {
       index3: "",
       index4: "",
       color: "",
-      idOfLine: "",
+      idOfLine: ""
     };
     this.topLineId = "";
   }
@@ -118,7 +118,7 @@ export default class GSimRegular extends Vue {
       index3: "75",
       index4: "7",
       color: "simpleLineB",
-      idOfLine: "56",
+      idOfLine: "56"
     };
     co["16"] = {
       index1: "75",
@@ -126,7 +126,7 @@ export default class GSimRegular extends Vue {
       index3: "90",
       index4: "33",
       color: "simpleLineB",
-      idOfLine: "16",
+      idOfLine: "16"
     };
     co["12"] = {
       index1: "90",
@@ -134,7 +134,7 @@ export default class GSimRegular extends Vue {
       index3: "75",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "12",
+      idOfLine: "12"
     };
     co["23"] = {
       index1: "75",
@@ -142,7 +142,7 @@ export default class GSimRegular extends Vue {
       index3: "45",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "23",
+      idOfLine: "23"
     };
     co["34"] = {
       index1: "45",
@@ -150,7 +150,7 @@ export default class GSimRegular extends Vue {
       index3: "30",
       index4: "33",
       color: "simpleLineB",
-      idOfLine: "34",
+      idOfLine: "34"
     };
     co["45"] = {
       index1: "30",
@@ -158,7 +158,7 @@ export default class GSimRegular extends Vue {
       index3: "45",
       index4: "7",
       color: "simpleLineB",
-      idOfLine: "45",
+      idOfLine: "45"
     };
     co["25"] = {
       index1: "45",
@@ -166,7 +166,7 @@ export default class GSimRegular extends Vue {
       index3: "75",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "25",
+      idOfLine: "25"
     };
     co["36"] = {
       index1: "75",
@@ -174,7 +174,7 @@ export default class GSimRegular extends Vue {
       index3: "45",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "36",
+      idOfLine: "36"
     };
     co["14"] = {
       index1: "90",
@@ -182,7 +182,7 @@ export default class GSimRegular extends Vue {
       index3: "30",
       index4: "33",
       color: "simpleLineB",
-      idOfLine: "14",
+      idOfLine: "14"
     };
     co["15"] = {
       index1: "45",
@@ -190,7 +190,7 @@ export default class GSimRegular extends Vue {
       index3: "90",
       index4: "33",
       color: "simpleLineB",
-      idOfLine: "15",
+      idOfLine: "15"
     };
     co["26"] = {
       index1: "75",
@@ -198,7 +198,7 @@ export default class GSimRegular extends Vue {
       index3: "75",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "26",
+      idOfLine: "26"
     };
     co["13"] = {
       index1: "90",
@@ -206,7 +206,7 @@ export default class GSimRegular extends Vue {
       index3: "45",
       index4: "59",
       color: "simpleLineB",
-      idOfLine: "13",
+      idOfLine: "13"
     };
     co["24"] = {
       index1: "75",
@@ -214,7 +214,7 @@ export default class GSimRegular extends Vue {
       index3: "30",
       index4: "33",
       color: "simpleLineB",
-      idOfLine: "24",
+      idOfLine: "24"
     };
     co["35"] = {
       index1: "45",
@@ -222,7 +222,7 @@ export default class GSimRegular extends Vue {
       index3: "45",
       index4: "7",
       color: "simpleLineB",
-      idOfLine: "35",
+      idOfLine: "35"
     };
     co["46"] = {
       index1: "30",
@@ -230,7 +230,7 @@ export default class GSimRegular extends Vue {
       index3: "75",
       index4: "7",
       color: "simpleLineB",
-      idOfLine: "46",
+      idOfLine: "46"
     };
     return co;
   }
@@ -292,7 +292,7 @@ export default class GSimRegular extends Vue {
         "36",
         "45",
         "46",
-        "56",
+        "56"
       ];
 
       var numOfBlue = 0;
