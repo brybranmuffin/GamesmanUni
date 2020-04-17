@@ -205,6 +205,7 @@ export class CGame implements IGame {
   }
 
   async runMove(): Promise<boolean> {
+    postMessageToParent(this.round.getMove());
     this.round.setMoveValue(this.round.getMove());
     this.history.updateHistory(this.round, "last");
     const oldRound: CRound = this.round;
@@ -253,5 +254,16 @@ export class CGame implements IGame {
       .getRoundDictionary()
       .get(this.round.getRoundNumber() + 1) as CRound;
     this.history.updateHistory(this.round, "redo");
+  }
+}
+
+function postMessageToParent(move: string) {
+  console.log("function is being called");
+
+  if (parent != window) {
+    console.log("this is working");
+    parent.postMessage(move, "*");
+  } else {
+    console.error("Should be in an iframe");
   }
 }

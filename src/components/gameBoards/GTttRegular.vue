@@ -141,7 +141,6 @@ export default class GTttRegular extends Vue {
   }
 
   runMove(move: string): void {
-    postMessageToParent(move);
     this.$store.dispatch("runMove", move);
   }
 
@@ -161,17 +160,6 @@ export default class GTttRegular extends Vue {
   @Watch("roundNumber")
   onSyncRoundChange(): void {
     this.updateBoardData();
-  }
-}
-
-function postMessageToParent(move: string) {
-  console.log("function is being called");
-
-  if (parent != window) {
-    console.log("this is working");
-    parent.postMessage(move, "*");
-  } else {
-    console.error("Should be in an iframe");
   }
 }
 </script>
