@@ -1,67 +1,59 @@
 <template>
   <div id="app-game">
     <div id="app-game-header">
-      <div id="app-game-options">
-        <GameOptions></GameOptions>
-      </div>
       <h2 id="app-game-title">
         {{ game.getName() }}
-        <br />
-        <router-link
-          :to="{ name: 'variants', params: { gameId: game.getId() } }"
-          >({{ game.getRound().getVariantDescription() }})</router-link
-        >
       </h2>
-      <div id="app-game-instruction">
-        <GameInstruction></GameInstruction>
-      </div>
     </div>
     <div id="app-game-body">
       <div id="app-game-body-main">
-        <div v-if="options.getClockVisibility()" id="app-game-body-main-clock">
-          <div id="app-game-time">{{ time }}</div>
-          <div id="app-game-date">{{ date }}</div>
-          <div id="app-game-timer">{{ timer.format("HH:mm:ss") }}</div>
-        </div>
-        <div id="app-game-body-main-function">
-          <button id="app-game-undo" @click="undid" :disabled="isInvalidUndo">
-            Undo
-          </button>
-          <button id="app-game-restart" @click="restarted">Restart</button>
-          <button id="app-game-redo" @click="redid" :disabled="isInvalidRedo">
-            Redo
-          </button>
-        </div>
-        <div id="app-game-body-main-stats">
-          <div id="app-game-round">
-            Move #{{ game.getRound().getRoundNumber() }}
-          </div>
-          <div v-if="options.getHintVisibility()" id="app-game-remoteness">
-            Remoteness {{ game.getRound().getRemoteness() }}
-          </div>
-        </div>
-        <div
-          v-if="options.getHintVisibility()"
-          id="app-game-body-main-prediction"
-        >
-          <b
-            id="app-game-prediction-turn-id"
-            :class="'c-turn-' + game.getRound().getTurnId()"
-            >{{ game.getRound().getTurnName() }}</b
-          >
-          should
-          <span
-            id="app-game-prediction-position-value"
-            :class="'c-' + game.getRound().getPositionValue()"
-            >{{ game.getRound().getPositionValue() }}</span
-          >.
+        <div id="app-game-body-main-instructions">
+          <h3>How to play?</h3>
+          <ExternalMarkdown
+            class="c-markdown"
+            :relativePath="`gameInstructions/${game.getId()}.md`"
+          ></ExternalMarkdown>
         </div>
         <div id="app-game-body-main-board">
           <GameBoard></GameBoard>
         </div>
-      </div>
-      <div v-if="options.getVvhVisibility()" id="app-game-body-vvh">
-        <GameVvh></GameVvh>
+        <div id="app-game-body-main-results">
+          <template v-if="game.getRound().getRemoteness() == 0">
+            <p>
+            Game over.
+            <template v-if="game.getRound().getPositionValue() == 'lose'">
+              <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                <!-- Computer's turn -->
+                🎉 You won!
+              </template>
+              <template v-else> 
+                <!-- The player's turn -->
+                🤖 The computer won.
+              </template>
+            </template>
+            <template v-else-if="game.getRound().getPositionValue() == 'win'">
+              <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                <!-- Computer's turn -->
+                🤖 The computer won.
+              </template>
+              <template v-else> 
+                <!-- The player's turn -->
+                🎉 You won!
+              </template>
+            </template>
+            <template v-else-if="game.getRound().getPositionValue() == 'tie'">
+                👌 It's a tie!
+              </template>
+              <template v-else>
+                👌 It's a draw!
+              </template>
+            </p>
+            <p>You made {{ Math.floor((game.getRound().getRoundNumber() - 1) / 2) }} moves.</p>
+          </template>
+          <template v-else>
+            <p>The game's not wrapped up yet... Who'll win? 🤔</p>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -76,13 +68,15 @@ import GameBoard from "@/components/GameBoard.vue";
 import GameInstruction from "@/components/GameInstruction.vue";
 import GameOptions from "@/components/GameOptions.vue";
 import GameVvh from "@/components/GameVvh.vue";
+import ExternalMarkdown from "@/components/ExternalMarkdown.vue";
 
 @Component({
   components: {
     GameBoard,
     GameInstruction,
     GameOptions,
-    GameVvh
+    GameVvh,
+    ExternalMarkdown
   }
 })
 export default class AppGame extends Vue {
@@ -201,8 +195,7 @@ export default class AppGame extends Vue {
 }
 
 #app-game-title {
-  border: 0.04em solid var(--neutralColor);
-  border-radius: 0.25em;
+  
 }
 
 #app-game-body {
@@ -218,64 +211,22 @@ export default class AppGame extends Vue {
   padding: 0.25em;
 }
 
-#app-game-body-main-clock {
-  @include flexItem(row, nowrap, space-around, stretch, stretch);
-  > * {
-    @include flexContent(1, 1, 0);
-    border: 0.04em solid var(--neutralColor);
-    border-radius: 0.25em;
-    margin: 0;
-    padding: 0.25em;
-  }
-}
-
-#app-game-body-main-function {
-  @include flexItem(row, nowrap, space-around, stretch, stretch);
-  border: 0.04em solid var(--neutralColor);
-  border-radius: 0.25em;
-  padding: 0.25em;
-  margin: 0;
-  > * {
-    border-radius: 100%;
-    margin: 0.5em;
-    padding: 1.5em 1em;
-  }
-}
-
-#app-game-body-main-stats {
-  @include flexItem(row, wrap, space-between, stretch, stretch);
-  margin: 0;
-  padding: 0;
-  > * {
-    @include flexContent(1, 1, 0);
-    border: 0.04em solid var(--neutralColor);
-    border-radius: 0.25em;
-    margin: 0;
-    padding: 0.25em;
-  }
-}
-
-#app-game-body-main-prediction {
-  border: 0.04em solid var(--neutralColor);
-  border-radius: 0.25em;
-  margin: 0;
-  padding: 0.25em;
-  #app-game-prediction-position-value {
-    border-radius: 100%;
-    padding-left: 0.25em;
-    padding-right: 0.25em;
-  }
+#app-game-body-main-instructions {
+  border: 2px solid var(--neutralColor);
+  border-radius: 0.5em 0.5em 0 0;
+  padding: 0.5em;
 }
 
 #app-game-body-main-board {
-  border: 0.04em solid var(--neutralColor);
-  border-radius: 0.25em;
-  padding: 0.25em;
-  margin: 0;
+  border: 2px solid var(--neutralColor);
+  padding: 0.5em;
+  margin-top: -2px;
 }
 
-#app-game-body-vvh {
-  margin: 0.25em;
-  padding: 0.25em;
+#app-game-body-main-results {
+  border: 2px solid var(--neutralColor);
+  border-radius: 0 0 0.5em 0.5em;
+  padding: 0.5em;
+  margin-top: -2px;
 }
 </style>

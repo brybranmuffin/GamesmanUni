@@ -20,7 +20,7 @@
           class="token"
           :class="boardData[cellCount - i].token"
           x="55"
-          :y="10 * (i - 1) + 12.5"
+          :y="10 * (i - 1) + 2.5"
           width="10"
           height="10"
         />
@@ -115,14 +115,14 @@ export default class GTenRegular extends Vue {
       const rounds: Array<CRound> = this.$store.getters.roundArray;
       const round: CRound = this.$store.getters.round;
       for (
-        let roundIndex: number = 0;
-        roundIndex < round.getRoundNumber() - 1;
+        let roundIndex: number = 1;
+        roundIndex < round.getRoundNumber();
         roundIndex++
       ) {
         if (rounds[roundIndex].getMove() != "") {
           this.boardData[
             rounds[roundIndex].getPosition().substring(2)
-          ].token = `turn-${rounds[roundIndex].getTurnId()}-token`;
+          ].token = `turn-${1 - rounds[roundIndex].getTurnId()}-token`;
         }
       }
       for (let nextMoveData of round.getNextMoveDataArray()) {
@@ -171,23 +171,11 @@ export default class GTenRegular extends Vue {
   fill: rgba(0, 0, 0, 0);
 }
 
-.hint-win {
-  fill: var(--winColor);
-  fill-opacity: 0.8;
-}
-
-.hint-draw {
-  fill: var(--drawColor);
-  fill-opacity: 0.8;
-}
-
-.hint-tie {
-  fill: var(--tieColor);
-  fill-opacity: 0.8;
-}
-
+.hint-win,
+.hint-draw,
+.hint-tie,
 .hint-lose {
-  fill: var(--loseColor);
+  fill: var(--turn0Color);
   fill-opacity: 0.8;
 }
 

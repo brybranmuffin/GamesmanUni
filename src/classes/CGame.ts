@@ -205,7 +205,6 @@ export class CGame implements IGame {
   }
 
   async runMove(): Promise<boolean> {
-    let success = true;
     this.round.setMoveValue(this.round.getMove());
     this.history.updateHistory(this.round, "last");
     const oldRound: CRound = this.round;
@@ -220,9 +219,26 @@ export class CGame implements IGame {
         .getNextMoveDataDictionary()
         .get(oldRound.getMove()) as TMoveData).position
     );
-    success = await this.loadPositionData();
+    if (!(await this.loadPositionData())) return false;
     this.history.updateHistory(this.round, "curr");
-    return success;
+    // Make computer move
+    if (this.isComputerMove()) {
+      if (!(await this.makeComputerMove())) return false;
+    }
+    return true;
+  }
+
+  isComputerMove(): boolean {
+    return this.round.getRoundNumber() % 2 == 0;
+  }
+
+  async makeComputerMove(): Promise<boolean> {
+    // Always make the best move for now
+    const nextMoves = this.round.getNextMoveDataArray();
+    if (nextMoves.length == 0) return true; // No move to make
+    const computerMove = nextMoves[0];
+    this.round.setMove(computerMove.move);
+    return await this.runMove();
   }
 
   undoMove(): void {

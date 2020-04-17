@@ -6,7 +6,9 @@
 
 body {
   background-color: var(--backgroundColor);
-  padding: 0 5%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 h1 {
@@ -26,39 +28,13 @@ h2 {
 h3 {
   font-size: 1.17em;
   font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h4 {
-  font-size: 1em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h5 {
-  font-size: 0.83em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
-}
-
-h6 {
-  font-size: 0.75em;
-  font-weight: bold;
-  margin: 0.25em 1em;
-  padding: 0.25em 1em;
+  margin: 1rem 0;
 }
 
 p {
   font-size: 1em;
-  line-height: 2em;
-  padding: 0 20%;
-  text-align: justify;
-  &::first-line {
-    text-indent: 4em;
-  }
+  margin: 1rem 0;
+  line-height: 1.5;
 }
 
 b {

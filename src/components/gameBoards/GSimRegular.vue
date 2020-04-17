@@ -1,7 +1,7 @@
 <template>
   <div id="app-game-board-sim-regular">
     <svg
-      viewBox="0 0 122 66"
+      viewBox="26.5 0 66 66"
       id="viewbox-sim-regular"
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <AppHeader></AppHeader>
-    <hr class="c-divider" />
     <router-view />
-    <hr class="c-divider" />
     <AppFooter></AppFooter>
   </div>
 </template>

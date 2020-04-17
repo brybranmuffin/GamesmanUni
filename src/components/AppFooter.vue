@@ -1,7 +1,7 @@
 <template>
   <div id="app-footer">
     <span id="app-footer-frontend-version"
-      >GamesmanUniGUI v{{ appVersion }}</span
+      >Powered by GamesmanUniGUI v{{ appVersion }}</span
     >
     |
     <span id="app-footer-backend-version"

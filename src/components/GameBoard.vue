@@ -12,7 +12,7 @@ import GDnbRegular from "@/components/gameBoards/GDnbRegular.vue";
 import GFoxesRegular from "@/components/gameBoards/GFoxesRegular.vue";
 import GSimRegular from "@/components/gameBoards/GSimRegular.vue";
 import GSnakeRegular from "@/components/gameBoards/GSnakeRegular.vue";
-import GTenRegular from "@/components/gameBoards/GTenRegular.vue";
+import G0ton10 from "@/components/gameBoards/G0ton10.vue";
 import GTttMisere from "@/components/gameBoards/GTttMisere.vue";
 import GTttRegular from "@/components/gameBoards/GTttRegular.vue";
 
@@ -23,7 +23,7 @@ import GTttRegular from "@/components/gameBoards/GTttRegular.vue";
     GFoxesRegular,
     GSimRegular,
     GSnakeRegular,
-    GTenRegular,
+    G0ton10,
     GTttMisere,
     GTttRegular
   }
