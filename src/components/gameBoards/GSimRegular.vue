@@ -298,10 +298,10 @@ export default class GSimRegular extends Vue {
       var numOfBlue = 0;
       var numOfRed = 0;
       for (var i = 0; i < nums.length; i++) {
-        if (position[i] == "x") {
+        if (position[i] == "o") {
           this.corresponding[nums[i]].color = "blue";
           numOfBlue = numOfBlue + 1;
-        } else if (position[i] == "o") {
+        } else if (position[i] == "x") {
           this.corresponding[nums[i]].color = "red";
           numOfRed = numOfRed + 1;
         }
