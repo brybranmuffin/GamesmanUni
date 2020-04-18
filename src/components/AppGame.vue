@@ -213,19 +213,19 @@ export default class AppGame extends Vue {
 #app-game-body-main-instructions {
   border: 2px solid var(--neutralColor);
   border-radius: 0.5em 0.5em 0 0;
-  padding: 0.5em;
+  padding: 0.5em 1em;
 }
 
 #app-game-body-main-board {
   border: 2px solid var(--neutralColor);
-  padding: 0.5em;
+  padding: 1em;
   margin-top: -2px;
 }
 
 #app-game-body-main-results {
   border: 2px solid var(--neutralColor);
   border-radius: 0 0 0.5em 0.5em;
-  padding: 0.5em;
+  padding: 0.5em 1em;
   margin-top: -2px;
 }
 </style>
