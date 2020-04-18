@@ -29,7 +29,7 @@
   "gameOptionsVisibility": false,
   "clockVisibility": false,
   "vvhVisibility": false,
-  "nextMovesVisibility": false,
+  "nextMovesVisibility": true,
   "hintVisibility": false,
   "deltaRemotenessVisibility": false,
   "animationDuration": 1,
