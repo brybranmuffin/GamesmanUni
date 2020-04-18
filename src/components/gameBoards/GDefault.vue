@@ -591,6 +591,7 @@ export default class GDefault extends Vue {
     }
 
     &:not(.move) {
+      transform: translateY(0);
       animation-name: drop;
       animation-timing-function: ease-in;
       animation-duration: 0.3s;
