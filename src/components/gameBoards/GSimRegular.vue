@@ -359,7 +359,7 @@ export default class GSimRegular extends Vue {
 
 <style lang="scss" scoped>
 .simpleLineB {
-  stroke: rgb(219, 219, 78);
+  stroke: var(--neutralColor);
   stroke-width: 2;
 }
 .simpleLineB:hover {
@@ -368,7 +368,7 @@ export default class GSimRegular extends Vue {
   cursor: pointer;
 }
 .simpleLineR {
-  stroke: rgb(219, 219, 78);
+  stroke: var(--neutralColor);
   stroke-width: 2;
 }
 .simpleLineR:hover {
