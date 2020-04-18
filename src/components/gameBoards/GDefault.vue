@@ -1,5 +1,5 @@
 <template>
-  <div id="app-game-board-default">
+  <div id="app-game-board-default" :data-gameid="gameId">
     <div id="app-game-board-default-position">
       <h3 id="app-game-board-default-position-title">Position</h3>
       <template v-if="richPositionData.type == GDefaultPositionTypes.String">
@@ -58,24 +58,46 @@
               width="20"
               height="20"
             />
-            <text
-              v-if="cell.token != '-' && cell.token != '*'"
-              :x="coords[0] * 20 + 10"
-              :y="coords[1] * 20 + 10"
-              :class="
-                'app-game-board-default-token ' +
-                  (cell.move ? 'move ' : '') +
-                  getBoardMoveElementHintClass(cell.move)
-              "
-              :style="{
-                opacity:
-                  hintVisibility && deltaRemotenessVisibility && cell.move
-                    ? cell.move.hintOpacity
-                    : 1
-              }"
-            >
-              {{ cell.token }}
-            </text>
+            <template v-if="gameId == 'connect4'">
+              <circle
+                v-if="cell.token != '-' && cell.token != '*'"
+                :data-token="cell.token"
+                :cx="coords[0] * 20 + 10"
+                :cy="coords[1] * 20 + 10"
+                r="8"
+                :class="
+                  'app-game-board-default-token ' +
+                    (cell.move ? 'move ' : '') +
+                    getBoardMoveElementHintClass(cell.move)
+                "
+                :style="{
+                  opacity:
+                    hintVisibility && deltaRemotenessVisibility && cell.move
+                      ? cell.move.hintOpacity
+                      : 1
+                }"
+              />
+            </template>
+            <template v-else>
+              <text
+                v-if="cell.token != '-' && cell.token != '*'"
+                :x="coords[0] * 20 + 10"
+                :y="coords[1] * 20 + 10"
+                :class="
+                  'app-game-board-default-token ' +
+                    (cell.move ? 'move ' : '') +
+                    getBoardMoveElementHintClass(cell.move)
+                "
+                :style="{
+                  opacity:
+                    hintVisibility && deltaRemotenessVisibility && cell.move
+                      ? cell.move.hintOpacity
+                      : 1
+                }"
+              >
+                {{ cell.token }}
+              </text>
+            </template>
           </g>
           <!-- Move arrows -->
           <g v-for="(arrow, i) in richPositionData.arrows" :key="'arrow' + i">
@@ -266,6 +288,10 @@ export default class GDefault extends Vue {
 
   updateRichPositionData(): void {
     this.richPositionData = this.generateRichPositionData();
+  }
+
+  get gameId() {
+    return this.$store.getters.gameId;
   }
 
   get hintVisibility() {
@@ -531,6 +557,49 @@ export default class GDefault extends Vue {
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     animation-direction: alternate;
+  }
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(-100%);
+    fill: transparent;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+[data-gameid="connect4"] {
+  .app-game-board-default-cell {
+    // transition: fill ease 1s;
+
+    // No default hover effects
+    fill: var(--backgroundColor) !important;
+  }
+
+  .app-game-board-default-token {
+    &[data-token="X"] {
+      fill: var(--turn0Color);
+    }
+    &[data-token="O"] {
+      fill: var(--turn1Color);
+    }
+
+    &.move {
+      opacity: 0.1 !important;
+    }
+
+    &:not(.move) {
+      animation-name: drop;
+      animation-timing-function: ease-in;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+    }
+  }
+
+  g:hover > .app-game-board-default-token.move {
+    opacity: 0.4 !important;
   }
 }
 </style>
