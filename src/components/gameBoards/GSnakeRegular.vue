@@ -71,7 +71,11 @@
         <g v-else>
           <use
             v-if="boardData[cell].hint"
-            :class="'hint-' + boardData[cell].hint"
+            :class="
+              $store.getters.hintVisibility
+                ? 'hint-' + boardData[cell].hint
+                : ''
+            "
             xlink:href="#hint"
             :x="((cell - 1) % 4) * 21"
             :y="Math.floor((cell - 1) / 4) * 21"
@@ -215,6 +219,10 @@ svg {
   &1-token {
     stroke: var(--turn1Color);
   }
+}
+
+#hint {
+  fill: var(--neutralColor);
 }
 
 .hint- {
