@@ -130,6 +130,7 @@ export default class GDnbRegular extends Vue {
   }
 
   runMove(move: string): void {
+    if (this.loadingStatus) return; // Only accept user moves after loading completes
     this.$store.dispatch("runMove", move);
   }
 

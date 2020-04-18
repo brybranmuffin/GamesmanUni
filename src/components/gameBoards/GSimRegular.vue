@@ -336,6 +336,7 @@ export default class GSimRegular extends Vue {
   }
 
   runMove(id: string) {
+    if (this.loadingStatus) return; // Only accept user moves after loading completes
     if (
       this.corresponding[id].color == "red" ||
       this.corresponding[id].color == "blue" ||
