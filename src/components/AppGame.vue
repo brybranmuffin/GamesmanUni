@@ -2,6 +2,7 @@
   <div id="app-game">
     <div id="app-game-header">
       <h2 id="app-game-title">{{ game.getName() }}</h2>
+      <h3>{{ game.getRound().getVariantDescription() }}</h3>
     </div>
     <div id="app-game-body">
       <div id="app-game-body-main">
@@ -188,13 +189,6 @@ export default class AppGame extends Vue {
 
 #app-game {
   @include flexItem(column, nowrap, flex-start, stretch, stretch);
-}
-
-#app-game-header {
-  @include flexItem(row, nowrap, center, center, stretch);
-}
-
-#app-game-title {
 }
 
 #app-game-body {
