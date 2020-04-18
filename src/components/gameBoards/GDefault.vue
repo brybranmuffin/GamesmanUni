@@ -580,10 +580,10 @@ export default class GDefault extends Vue {
 
   .app-game-board-default-token {
     &[data-token="X"] {
-      fill: var(--turn0Color);
+      fill: var(--turn1Color);
     }
     &[data-token="O"] {
-      fill: var(--turn1Color);
+      fill: var(--turn0Color);
     }
 
     &.move {

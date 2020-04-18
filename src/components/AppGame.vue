@@ -21,7 +21,7 @@
             <p>
               Game over.
               <template v-if="game.getRound().getPositionValue() == 'lose'">
-                <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                <template v-if="game.isComputerMove()">
                   <!-- Computer's turn -->
                   🎉 You won!
                 </template>
@@ -31,7 +31,7 @@
                 </template>
               </template>
               <template v-else-if="game.getRound().getPositionValue() == 'win'">
-                <template v-if="game.getRound().getRoundNumber() % 2 == 0">
+                <template v-if="game.isComputerMove()">
                   <!-- Computer's turn -->
                   🤖 The computer won.
                 </template>

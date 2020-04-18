@@ -201,6 +201,10 @@ export class CGame implements IGame {
     success = await this.loadPositionData();
     this.history = new CHistory();
     this.history.updateHistory(this.round, "curr");
+    // Make computer move if computer goes first
+    if (this.isComputerMove()) {
+      if (!(await this.makeComputerMove())) return false;
+    }
     return success;
   }
 
@@ -230,6 +234,10 @@ export class CGame implements IGame {
   }
 
   isComputerMove(): boolean {
+    // Computer makes the first move for connect 4 and sim
+    if (this.id == "connect4" || this.id == "sim") {
+      return this.round.getRoundNumber() % 2 == 1;
+    }
     return this.round.getRoundNumber() % 2 == 0;
   }
 
@@ -237,8 +245,27 @@ export class CGame implements IGame {
     // Always make the best move for now
     const nextMoves = this.round.getNextMoveDataArray();
     if (nextMoves.length == 0) return true; // No move to make
-    const computerMove = nextMoves[0];
-    this.round.setMove(computerMove.move);
+
+    // Figure out computer's move
+    let computerMoves = [];
+    for (let nextMove of nextMoves) {
+      if (nextMove.deltaRemoteness != 0) break;
+      computerMoves.push(nextMove.move);
+    }
+    let computerMove =
+      computerMoves[
+        Math.min(
+          computerMoves.length - 1,
+          Math.floor(Math.random() * computerMoves.length)
+        )
+      ];
+
+    // Override computer move for some special cases
+    if (this.round.getRoundNumber() == 1 && this.id == "connect4") {
+      computerMove = "A_X_20";
+    }
+
+    this.round.setMove(computerMove);
     return await this.runMove();
   }
 
