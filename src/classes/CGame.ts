@@ -209,7 +209,19 @@ export class CGame implements IGame {
   }
 
   async runMove(): Promise<boolean> {
+    // Validate move
+    let validMove = false;
+    for (let nextMove of this.round.getNextMoveDataArray()) {
+      if (this.round.getMove() == nextMove.move) {
+        validMove = true;
+        break;
+      }
+    }
+    if (!validMove) return false;
+
+    // Report to parent frame
     postMessageToParent(this.round.getMove());
+
     this.round.setMoveValue(this.round.getMove());
     this.history.updateHistory(this.round, "last");
     const oldRound: CRound = this.round;
@@ -226,10 +238,12 @@ export class CGame implements IGame {
     );
     if (!(await this.loadPositionData())) return false;
     this.history.updateHistory(this.round, "curr");
+
     // Make computer move
     if (this.isComputerMove()) {
       if (!(await this.makeComputerMove())) return false;
     }
+
     return true;
   }
 
