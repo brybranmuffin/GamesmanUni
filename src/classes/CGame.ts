@@ -247,9 +247,11 @@ export class CGame implements IGame {
     if (nextMoves.length == 0) return true; // No move to make
 
     // Figure out computer's move
+    let bestMoveValue = nextMoves[0].moveValue;
     let computerMoves = [];
     for (let nextMove of nextMoves) {
-      if (nextMove.deltaRemoteness != 0) break;
+      if (nextMove.deltaRemoteness != 0 || nextMove.moveValue != bestMoveValue)
+        break;
       computerMoves.push(nextMove.move);
     }
     let computerMove =
