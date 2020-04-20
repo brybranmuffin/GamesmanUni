@@ -247,12 +247,31 @@ export class CGame implements IGame {
     return true;
   }
 
-  isComputerMove(): boolean {
+  getHumanMovesSummary() {
+    let count: { [key: string]: number } = {
+      win: 0,
+      lose: 0,
+      tie: 0,
+      draw: 0
+    };
+    for (let round of this.history.getRoundArray()) {
+      const roundNumber = round.getRoundNumber();
+      if (roundNumber == this.round.getRoundNumber()) break;
+      if (!this.isComputerMove(roundNumber)) {
+        count[round.getMoveValue()]++;
+      }
+    }
+    return count;
+  }
+
+  isComputerMove(roundNumber?: number): boolean {
+    if (roundNumber == undefined) roundNumber = this.round.getRoundNumber();
+
     // Computer makes the first move for connect 4 and sim
     if (this.id == "connect4" || this.id == "sim") {
-      return this.round.getRoundNumber() % 2 == 1;
+      return roundNumber % 2 == 1;
     }
-    return this.round.getRoundNumber() % 2 == 0;
+    return roundNumber % 2 == 0;
   }
 
   async makeComputerMove(): Promise<boolean> {

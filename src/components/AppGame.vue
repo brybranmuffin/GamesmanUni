@@ -1,7 +1,9 @@
 <template>
   <div id="app-game">
     <div id="app-game-header">
-      <h2 id="app-game-title">{{ game.getName() }}</h2>
+      <h2 id="app-game-title">
+        {{ game.getId() == "0ton" ? "0 to 10 by 1 or 2" : game.getName() }}
+      </h2>
       <h3>{{ game.getRound().getVariantDescription() }}</h3>
     </div>
     <div id="app-game-body">
@@ -45,11 +47,7 @@
               >
               <template v-else>👌 It's a draw!</template>
             </p>
-            <p>
-              You made
-              {{ Math.floor((game.getRound().getRoundNumber() - 1) / 2) }}
-              moves.
-            </p>
+            <p>{{ formatHumanMovesSummary(game.getHumanMovesSummary()) }}</p>
           </template>
           <template v-else>
             <p>The game's not wrapped up yet... Who'll win? 🤔</p>
@@ -112,6 +110,20 @@ export default class AppGame extends Vue {
         " Game: " +
         this.game.getCurrentVariantData().description
     };
+  }
+
+  formatHumanMovesSummary(humanMovesSummary: {
+    [key: string]: number;
+  }): string {
+    // "\xa0" is equivalent to &nbsp; in HTML
+    let str = "";
+    str += `${humanMovesSummary.win}\xa0winning\xa0move`;
+    if (humanMovesSummary.win > 1) str += "s";
+    str += `, ${humanMovesSummary.tie}\xa0tie\xa0move`;
+    if (humanMovesSummary.tie > 1) str += "s";
+    str += `, and ${humanMovesSummary.lose}\xa0losing\xa0move`;
+    if (humanMovesSummary.lose > 1) str += "s";
+    return `You made ${str}.`;
   }
 
   initInterval(): void {
