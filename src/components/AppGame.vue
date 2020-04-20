@@ -2,7 +2,7 @@
   <div id="app-game">
     <div id="app-game-header">
       <h2 id="app-game-title">
-        {{ game.getId() == "0ton" ? "0 to 10 by 1 or 2" : game.getName() }}
+        {{ game.getId() == "0ton" ? "0-to-10 by 1-or-2" : game.getName() }}
       </h2>
       <h3>{{ game.getRound().getVariantDescription() }}</h3>
     </div>
