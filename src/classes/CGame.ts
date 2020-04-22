@@ -8,6 +8,7 @@ import { IGame } from "@/interfaces/IGame";
 import { CHistory } from "@/classes/CHistory";
 import { COptions } from "@/classes/COptions";
 import { CRound } from "@/classes/CRound";
+import { Dictionary } from "vue-router/types/router";
 
 export class CGame implements IGame {
   private readonly serverDataSource: string;
@@ -212,10 +213,7 @@ export class CGame implements IGame {
   async runMove(): Promise<boolean> {
     // Validate move
     let validMove = false;
-    let start = "-";
     let game = "-";
-    let finish = "-";
-    postMessageToParent(this.round.getRemoteness().toString().concat("test2"));
     for (let nextMove of this.round.getNextMoveDataArray()) {
       if (this.round.getMove() == nextMove.move) {
         validMove = true;
@@ -224,32 +222,24 @@ export class CGame implements IGame {
     }
     if (!validMove) return false;
 
-    if (this.round.getRoundNumber() == 1) {
-      start = "s";
-    }
-
     if (this.id == "connect4") {
-      game = "c";
+      game = "c_";
     }
     if (this.id == "sim") {
-      game = "s";
+      game = "s_";
     }
     if (this.id == "snake") {
-      game = "n";
+      game = "n_";
     }
     if (this.id == "ttt") {
-      game = "t";
+      game = "t_";
     }
     if (this.id == "0ton") {
-      game = "o";
+      game = "o_";
     }
-
-    let message = start.concat(game, finish, this.round.getMove());
-
-    postMessageToParent(this.id);
     // Report to parent frame
-    postMessageToParent(this.round.getRemoteness().toString());
-    postMessageToParent(this.round.getMove());
+    let message = game.concat(this.round.getMove());
+    postMessageToParent(message);
 
     this.round.setMoveValue(this.round.getMove());
     this.history.updateHistory(this.round, "last");
@@ -281,7 +271,7 @@ export class CGame implements IGame {
       win: 0,
       lose: 0,
       tie: 0,
-      draw: 0
+      draw: 0,
     };
     for (let round of this.history.getRoundArray()) {
       const roundNumber = round.getRoundNumber();
@@ -290,7 +280,41 @@ export class CGame implements IGame {
         count[round.getMoveValue()]++;
       }
     }
+    this.postSummaryToParent(this.id, count);
+    postMessageToParent(this.id.toString().concat("_fin"));
     return count;
+  }
+
+  postSummaryToParent(Gme: String, count: Dictionary<number>): void {
+    var game = "-";
+    if (Gme == "connect4") {
+      game = "c_";
+    }
+    if (Gme == "sim") {
+      game = "s_";
+    }
+    if (Gme == "snake") {
+      game = "n_";
+    }
+    if (Gme == "ttt") {
+      game = "t_";
+    }
+    if (Gme == "0ton") {
+      game = "o_";
+    }
+
+    postMessageToParent(
+      "sum".concat(
+        game,
+        count["win"].toString(),
+        "_",
+        count["lose"].toString(),
+        "_",
+        count["tie"].toString(),
+        "_",
+        count["draw"].toString()
+      )
+    );
   }
 
   isComputerMove(roundNumber?: number): boolean {
@@ -306,7 +330,7 @@ export class CGame implements IGame {
   async makeComputerMove(): Promise<boolean> {
     // Always make the best move for now
     const nextMoves = this.round.getNextMoveDataArray();
-    postMessageToParent(this.round.getRemoteness().toString().concat("test"));
+    // postMessageToParent(this.round.getRemoteness().toString().concat("test"));
     if (nextMoves.length == 0) {
       return true;
     } // No move to make
