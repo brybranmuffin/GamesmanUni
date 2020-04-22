@@ -32,11 +32,11 @@ export class CGame implements IGame {
       id: "",
       description: "",
       status: "",
-      startPosition: ""
+      startPosition: "",
     };
     this.turnNameDictionary = new Map([
       [0, require("@/datas/defaults.json").turn0Name],
-      [1, require("@/datas/defaults.json").turn1Name]
+      [1, require("@/datas/defaults.json").turn1Name],
     ]);
     this.vvhSelectorId = require("@/datas/defaults.json").vvhSelectorId;
     this.options = new COptions();
@@ -97,7 +97,7 @@ export class CGame implements IGame {
       id: "",
       description: "",
       status: "",
-      startPosition: ""
+      startPosition: "",
     };
   }
 
@@ -125,11 +125,11 @@ export class CGame implements IGame {
         if (rawData.status === "ok") {
           this.name = rawData.response.name;
           this.variantDataArray = rawData.response.variants.map(
-            rawVariantData => ({
+            (rawVariantData) => ({
               id: rawVariantData.variantId,
               description: rawVariantData.description,
               status: rawVariantData.status,
-              startPosition: rawVariantData.startPosition
+              startPosition: rawVariantData.startPosition,
             })
           );
           this.variantDataDictionary = new Map<string, TVariantData>();
@@ -201,6 +201,7 @@ export class CGame implements IGame {
     success = await this.loadPositionData();
     this.history = new CHistory();
     this.history.updateHistory(this.round, "curr");
+
     // Make computer move if computer goes first
     if (this.isComputerMove()) {
       if (!(await this.makeComputerMove())) return false;
@@ -211,6 +212,10 @@ export class CGame implements IGame {
   async runMove(): Promise<boolean> {
     // Validate move
     let validMove = false;
+    let start = "-";
+    let game = "-";
+    let finish = "-";
+    postMessageToParent(this.round.getRemoteness().toString().concat("test2"));
     for (let nextMove of this.round.getNextMoveDataArray()) {
       if (this.round.getMove() == nextMove.move) {
         validMove = true;
@@ -219,7 +224,31 @@ export class CGame implements IGame {
     }
     if (!validMove) return false;
 
+    if (this.round.getRoundNumber() == 1) {
+      start = "s";
+    }
+
+    if (this.id == "connect4") {
+      game = "c";
+    }
+    if (this.id == "sim") {
+      game = "s";
+    }
+    if (this.id == "snake") {
+      game = "n";
+    }
+    if (this.id == "ttt") {
+      game = "t";
+    }
+    if (this.id == "0ton") {
+      game = "o";
+    }
+
+    let message = start.concat(game, finish, this.round.getMove());
+
+    postMessageToParent(this.id);
     // Report to parent frame
+    postMessageToParent(this.round.getRemoteness().toString());
     postMessageToParent(this.round.getMove());
 
     this.round.setMoveValue(this.round.getMove());
@@ -258,7 +287,10 @@ export class CGame implements IGame {
   async makeComputerMove(): Promise<boolean> {
     // Always make the best move for now
     const nextMoves = this.round.getNextMoveDataArray();
-    if (nextMoves.length == 0) return true; // No move to make
+    postMessageToParent(this.round.getRemoteness().toString().concat("test"));
+    if (nextMoves.length == 0) {
+      return true;
+    } // No move to make
 
     // Figure out computer's move
     let bestMoveValue = nextMoves[0].moveValue;
@@ -301,10 +333,7 @@ export class CGame implements IGame {
 }
 
 function postMessageToParent(move: string) {
-  console.log("function is being called");
-
   if (parent != window) {
-    console.log("this is working");
     parent.postMessage(move, "*");
   } else {
     console.error("Should be in an iframe");
