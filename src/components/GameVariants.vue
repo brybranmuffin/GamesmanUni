@@ -17,7 +17,6 @@
           :src="getLogoSource(variantData)"
           :alt="gameName + ' ' + variantData.description + ' Logo'"
           width="150em"
-          height="150em"
         />
         <h3 class="app-game-variants-variant-description">
           {{ variantData.description }}
@@ -55,29 +54,22 @@ export default class GameVariants extends Vue {
 
   getLogoSource(variantData: TVariantData): any {
     const logos = require.context("@/assets/", false);
-    try {
-      if (
-        logos(
-          "./L" +
-            this.gameId[0].toUpperCase() +
-            this.gameId.slice(1) +
-            variantData.id[0].toUpperCase() +
-            variantData.id.slice(1) +
-            ".svg"
-        )
-      ) {
-        return logos(
-          "./L" +
-            this.gameId[0].toUpperCase() +
-            this.gameId.slice(1) +
-            variantData.id[0].toUpperCase() +
-            variantData.id.slice(1) +
-            ".svg"
-        );
-      }
-    } catch (errorMessage) {
-      console.warn(`${this.gameName} game logo does not exist yet.`);
+    const gameBasename =
+      "./L" + this.gameId[0].toUpperCase() + this.gameId.slice(1);
+    const variantBasename =
+      gameBasename + variantData.id[0].toUpperCase() + variantData.id.slice(1);
+    function tryLogo(filepath: string): any {
+      try {
+        return logos(filepath);
+      } catch (errorMessage) {}
     }
+    const logo =
+      tryLogo(variantBasename + ".svg") ||
+      tryLogo(variantBasename + ".png") ||
+      tryLogo(gameBasename + ".svg") ||
+      tryLogo(gameBasename + ".png");
+    if (logo) return logo;
+    console.warn(`${this.gameName} game logo does not exist yet.`);
     return logos("./LApp.png");
   }
 

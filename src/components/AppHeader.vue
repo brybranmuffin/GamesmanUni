@@ -6,7 +6,6 @@
         alt="Gamesman Logo"
         src="@/assets/LApp.png"
         width="150em"
-        height="150em"
       />
     </router-link>
 

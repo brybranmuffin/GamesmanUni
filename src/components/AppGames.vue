@@ -13,7 +13,6 @@
           :src="getLogoSource(gameData)"
           :alt="gameData.name + ' Logo'"
           width="150em"
-          height="150em"
         />
         <h3 class="app-games-game-name">{{ gameData.name }}</h3>
         <h4 class="app-games-game-data-status">
@@ -37,19 +36,17 @@ export default class AppGames extends Vue {
 
   getLogoSource(gameData: TGameData): any {
     const logos = require.context("@/assets/", false);
-    try {
-      if (
-        logos(
-          "./L" + gameData.id[0].toUpperCase() + gameData.id.slice(1) + ".svg"
-        )
-      ) {
-        return logos(
-          "./L" + gameData.id[0].toUpperCase() + gameData.id.slice(1) + ".svg"
-        );
-      }
-    } catch (errorMessage) {
-      console.warn(`${gameData.name} game logo does not exist yet.`);
+    const gameBasename =
+      "./L" + gameData.id[0].toUpperCase() + gameData.id.slice(1);
+    function tryLogo(filepath: string): any {
+      try {
+        return logos(filepath);
+      } catch (errorMessage) {}
     }
+    const logo =
+      tryLogo(gameBasename + ".svg") || tryLogo(gameBasename + ".png");
+    if (logo) return logo;
+    console.warn(`${gameData.name} game logo does not exist yet.`);
     return logos("./LApp.png");
   }
 
