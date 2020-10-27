@@ -1,6 +1,6 @@
 <template>
   <div id="app-games">
-    <h2 id="app-games-title">Games</h2>
+    <h2 id="app-games-title">Puzzles</h2>
     <div id="app-games-games-container">
       <router-link
         class="app-games-game"
@@ -8,7 +8,7 @@
         :key="gameData.id"
         :to="{
           name: 'variants',
-          params: { type: 'games', gameId: gameData.id },
+          params: { type: 'puzzles', gameId: gameData.id },
         }"
       >
         <img
@@ -30,12 +30,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { TGameData } from "@/types/internal/TGameData";
-import { CGames } from "@/classes/CGames";
+import { CPuzzles } from "@/classes/CPuzzles";
 
 @Component
-export default class AppGames extends Vue {
+export default class AppPuzzles extends Vue {
   get gameDataArray(): Array<TGameData> {
-    return this.$store.getters.gameDataArray;
+    return this.$store.getters.puzzleDataArray;
   }
 
   getLogoSource(gameData: TGameData): any {
@@ -57,7 +57,7 @@ export default class AppGames extends Vue {
   }
 
   created(): void {
-    this.$store.dispatch("initGames");
+    this.$store.dispatch("initPuzzles");
   }
 }
 </script>

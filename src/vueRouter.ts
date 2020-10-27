@@ -15,7 +15,7 @@ export default new Router({
     {
       path: "/puzzles",
       component: () =>
-        import(/* webpackChunkName: "puzzles" */ "./views/Games.vue"),
+        import(/* webpackChunkName: "puzzles" */ "./views/Puzzles.vue"),
     },
     {
       path: "/games",
@@ -23,11 +23,12 @@ export default new Router({
         import(/* webpackChunkName: "games" */ "./views/Games.vue"),
     },
     {
-      path: "/games/:gameId/variants",
+      path: "/:type/:gameId/variants",
       name: "variants",
       component: () =>
         import(/* webpackChunkName: "variants" */ "./views/Variants.vue"),
     },
+    /* TODO: General game type? */
     {
       path: "/games/:gameId/variants/:variantId",
       name: "game",

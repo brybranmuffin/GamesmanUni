@@ -1,4 +1,4 @@
 export interface TRawGamesData {
-  status: "ok";
+  status: string;
   response: Array<{ gameId: string; name: string; status: string }>;
 }

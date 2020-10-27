@@ -2,6 +2,7 @@ import { IApp } from "@/interfaces/IApp";
 import { CGame } from "@/classes/CGame";
 import { CGames } from "@/classes/CGames";
 import { CGitHub } from "@/classes/CGitHub";
+import { CPuzzles } from "@/classes/CPuzzles";
 
 export class CApp implements IApp {
   private loadingStatus: boolean;
@@ -15,6 +16,7 @@ export class CApp implements IApp {
   private readonly serverDataSource: string;
   private readonly games: CGames;
   private game: CGame;
+  private readonly puzzles: CPuzzles;
   private readonly updates: CGitHub;
 
   constructor() {
@@ -35,6 +37,7 @@ export class CApp implements IApp {
     this.serverDataSource = require("@/datas/defaults.json").serverDataSource;
     this.games = new CGames();
     this.game = new CGame();
+    this.puzzles = new CPuzzles();
     this.updates = new CGitHub();
   }
 
@@ -80,6 +83,10 @@ export class CApp implements IApp {
 
   getGame(): CGame {
     return this.game;
+  }
+
+  getPuzzles(): CPuzzles {
+    return this.puzzles;
   }
 
   getUpdates(): CGitHub {

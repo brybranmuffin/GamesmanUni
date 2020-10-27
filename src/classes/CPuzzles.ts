@@ -4,12 +4,12 @@ import { TRawGamesData } from "@/types/external/TRawGamesData";
 import { TGameData } from "@/types/internal/TGameData";
 import { IGames } from "@/interfaces/IGames";
 
-export class CGames implements IGames {
+export class CPuzzles implements IGames {
   private readonly serverDataSource: string;
   private gameDataArray: Array<TGameData>;
 
   constructor() {
-    this.serverDataSource = require("@/datas/defaults.json").serverDataSource;
+    this.serverDataSource = require("@/datas/defaults.json").serverDataSourcePuzzles;
     this.gameDataArray = new Array<TGameData>();
   }
 
@@ -19,12 +19,11 @@ export class CGames implements IGames {
 
   private async loadGameDataArray(): Promise<boolean> {
     let success: boolean = true;
-    const gamesDataSource: string = `${this.serverDataSource}/games`;
-
+    const gamesDataSource: string = `${this.serverDataSource}/puzzles`;
     try {
       const httpResponse: AxiosResponse = await axios.get(gamesDataSource);
       const rawData: TRawGamesData | TRawErrorData = httpResponse.data;
-      if (rawData.status === "ok") {
+      if (rawData.status === "available") {
         this.gameDataArray = rawData.response.map((rawGameData) => ({
           id: rawGameData.gameId,
           name: rawGameData.name,
@@ -34,7 +33,9 @@ export class CGames implements IGames {
     } catch (errorMessage) {
       success = false;
       console.error(errorMessage);
-      console.error("Error: Failed to load games from server.");
+      console.error(
+        `Error: Failed to load games from server: ${gamesDataSource}`
+      );
       return success;
     }
     console.info(
