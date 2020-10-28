@@ -3,6 +3,7 @@ import { CGame } from "@/classes/CGame";
 import { CGames } from "@/classes/CGames";
 import { CGitHub } from "@/classes/CGitHub";
 import { CPuzzles } from "@/classes/CPuzzles";
+import { CPuzzle } from "@/classes/CPuzzle";
 
 export class CApp implements IApp {
   private loadingStatus: boolean;
@@ -17,6 +18,7 @@ export class CApp implements IApp {
   private readonly games: CGames;
   private game: CGame;
   private readonly puzzles: CPuzzles;
+  private puzzle: CPuzzle;
   private readonly updates: CGitHub;
 
   constructor() {
@@ -38,6 +40,7 @@ export class CApp implements IApp {
     this.games = new CGames();
     this.game = new CGame();
     this.puzzles = new CPuzzles();
+    this.puzzle = new CPuzzle();
     this.updates = new CGitHub();
   }
 
@@ -87,6 +90,10 @@ export class CApp implements IApp {
 
   getPuzzles(): CPuzzles {
     return this.puzzles;
+  }
+
+  getPuzzle(): CPuzzle {
+    return this.puzzle;
   }
 
   getUpdates(): CGitHub {

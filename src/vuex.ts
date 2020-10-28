@@ -35,6 +35,8 @@ export default new Vuex.Store({
     gameId: (state) => state.app.getGame().getId(),
     gameName: (state) => state.app.getGame().getName(),
     variantDataArray: (state) => state.app.getGame().getVariantDataArray(),
+    variantDataArrayPuzzle: (state) =>
+      state.app.getPuzzle().getVariantDataArray(),
     variantDataDictionary: (state) =>
       state.app.getGame().getVariantDataDictionary(),
     currentVariantData: (state) => state.app.getGame().getCurrentVariantData(),
@@ -279,6 +281,15 @@ export default new Vuex.Store({
       commit("loadingStatus", true);
       commit("move", move);
       success = await state.app.getGame().runMove();
+      commit("loadingStatus", false);
+      return success;
+    },
+
+    // CPuzzle.ts
+    async initPuzzle({ state, commit }, gameId: string): Promise<boolean> {
+      let success: boolean = true;
+      commit("loadingStatus", true);
+      success = await state.app.getPuzzle().initGame(gameId);
       commit("loadingStatus", false);
       return success;
     },

@@ -1,5 +1,5 @@
 export interface TRawGameData {
-  status: "ok";
+  status: string;
   response: {
     gameId: string;
     name: string;

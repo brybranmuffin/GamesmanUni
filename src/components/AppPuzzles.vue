@@ -7,8 +7,8 @@
         v-for="gameData in gameDataArray"
         :key="gameData.id"
         :to="{
-          name: 'variants',
-          params: { type: 'puzzles', gameId: gameData.id },
+          name: 'puzzle_variants',
+          params: { gameId: gameData.id },
         }"
       >
         <img

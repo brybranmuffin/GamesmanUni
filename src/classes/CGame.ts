@@ -10,7 +10,7 @@ import { COptions } from "@/classes/COptions";
 import { CRound } from "@/classes/CRound";
 
 export class CGame implements IGame {
-  private readonly serverDataSource: string;
+  private serverDataSource: string;
   private id: string;
   private name: string;
   private variantDataArray: Array<TVariantData>;
@@ -32,11 +32,11 @@ export class CGame implements IGame {
       id: "",
       description: "",
       status: "",
-      startPosition: ""
+      startPosition: "",
     };
     this.turnNameDictionary = new Map([
       [0, require("@/datas/defaults.json").turn0Name],
-      [1, require("@/datas/defaults.json").turn1Name]
+      [1, require("@/datas/defaults.json").turn1Name],
     ]);
     this.vvhSelectorId = require("@/datas/defaults.json").vvhSelectorId;
     this.options = new COptions();
@@ -92,12 +92,20 @@ export class CGame implements IGame {
     this.name = name;
   }
 
+  getDataSource(): string {
+    return this.serverDataSource;
+  }
+
+  setDataSource(serverDataSource: string): void {
+    this.serverDataSource = serverDataSource;
+  }
+
   setCurrentVariantData(variantId: string): void {
     this.currentVariantData = this.variantDataDictionary.get(variantId) || {
       id: "",
       description: "",
       status: "",
-      startPosition: ""
+      startPosition: "",
     };
   }
 
@@ -122,14 +130,14 @@ export class CGame implements IGame {
           detailedGameDataSource
         );
         const rawData: TRawGameData | TRawErrorData = httpResponse.data;
-        if (rawData.status === "ok") {
+        if (rawData.status === "ok" || rawData.status === "available") {
           this.name = rawData.response.name;
           this.variantDataArray = rawData.response.variants.map(
-            rawVariantData => ({
+            (rawVariantData) => ({
               id: rawVariantData.variantId,
               description: rawVariantData.description,
               status: rawVariantData.status,
-              startPosition: rawVariantData.startPosition
+              startPosition: rawVariantData.startPosition,
             })
           );
           this.variantDataDictionary = new Map<string, TVariantData>();
