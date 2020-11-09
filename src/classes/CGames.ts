@@ -6,10 +6,16 @@ import { IGames } from "@/interfaces/IGames";
 
 export class CGames implements IGames {
   private readonly serverDataSource: string;
-  private gameDataArray: Array<TGameData>;
+  protected gameDataArray: Array<TGameData>;
 
-  constructor() {
-    this.serverDataSource = require("@/datas/defaults.json").serverDataSource;
+  constructor(serverDataSource?: string) {
+    if (typeof serverDataSource == "undefined") {
+      this.serverDataSource = `${
+        require("@/datas/defaults.json").serverDataSource
+      }/games`;
+    } else {
+      this.serverDataSource = serverDataSource;
+    }
     this.gameDataArray = new Array<TGameData>();
   }
 
@@ -19,18 +25,11 @@ export class CGames implements IGames {
 
   private async loadGameDataArray(): Promise<boolean> {
     let success: boolean = true;
-    const gamesDataSource: string = `${this.serverDataSource}/games`;
+    const gamesDataSource: string = `${this.serverDataSource}`;
 
     try {
       const httpResponse: AxiosResponse = await axios.get(gamesDataSource);
-      const rawData: TRawGamesData | TRawErrorData = httpResponse.data;
-      if (rawData.status === "ok") {
-        this.gameDataArray = rawData.response.map((rawGameData) => ({
-          id: rawGameData.gameId,
-          name: rawGameData.name,
-          status: rawGameData.status,
-        }));
-      }
+      this.processResponse(httpResponse);
     } catch (errorMessage) {
       success = false;
       console.error(errorMessage);
@@ -41,6 +40,17 @@ export class CGames implements IGames {
       `Successfully loaded game data array from: ${gamesDataSource}.`
     );
     return success;
+  }
+
+  protected processResponse(httpResponse: AxiosResponse): void {
+    const rawData: TRawGamesData | TRawErrorData = httpResponse.data;
+    if (rawData.status === "ok") {
+      this.gameDataArray = rawData.response.map((rawGameData) => ({
+        id: rawGameData.gameId,
+        name: rawGameData.name,
+        status: rawGameData.status,
+      }));
+    }
   }
 
   async initGames(): Promise<boolean> {
