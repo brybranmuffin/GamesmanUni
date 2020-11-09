@@ -22,8 +22,14 @@ export class CGame implements IGame {
   private round: CRound;
   private history: CHistory;
 
-  constructor() {
-    this.serverDataSource = require("@/datas/defaults.json").serverDataSource;
+  constructor(serverDataSource?: string) {
+    if (typeof serverDataSource == "undefined") {
+      this.serverDataSource = `${
+        require("@/datas/defaults.json").serverDataSource
+      }/games`;
+    } else {
+      this.serverDataSource = serverDataSource;
+    }
     this.id = "";
     this.name = "";
     this.variantDataArray = new Array<TVariantData>();
@@ -124,7 +130,7 @@ export class CGame implements IGame {
   private async loadDetailedGameData(): Promise<boolean> {
     let success: boolean = true;
     if (!this.currentVariantData.id) {
-      const detailedGameDataSource: string = `${this.serverDataSource}/games/${this.id}`;
+      const detailedGameDataSource: string = `${this.serverDataSource}/${this.id}`;
       try {
         const httpResponse: AxiosResponse = await axios.get(
           detailedGameDataSource
