@@ -12,14 +12,14 @@ import { CRound } from "@/classes/CRound";
 export class CGame implements IGame {
   private serverDataSource: string;
   private id: string;
-  private name: string;
-  private variantDataArray: Array<TVariantData>;
-  private variantDataDictionary: Map<string, TVariantData>;
+  protected name: string;
+  protected variantDataArray: Array<TVariantData>;
+  protected variantDataDictionary: Map<string, TVariantData>;
   private currentVariantData: TVariantData;
   private turnNameDictionary: Map<number, string>;
   private readonly vvhSelectorId: string;
   private options: COptions;
-  private round: CRound;
+  protected round: CRound;
   private history: CHistory;
 
   constructor(serverDataSource?: string) {
@@ -135,26 +135,7 @@ export class CGame implements IGame {
         const httpResponse: AxiosResponse = await axios.get(
           detailedGameDataSource
         );
-        const rawData: TRawGameData | TRawErrorData = httpResponse.data;
-        if (rawData.status === "ok" || rawData.status === "available") {
-          this.name = rawData.response.name;
-          this.variantDataArray = rawData.response.variants.map(
-            (rawVariantData) => ({
-              id: rawVariantData.variantId,
-              description: rawVariantData.description,
-              status: rawVariantData.status,
-              startPosition: rawVariantData.startPosition,
-            })
-          );
-          this.variantDataDictionary = new Map<string, TVariantData>();
-          for (let i: number = 0; i < this.variantDataArray.length; i++) {
-            this.variantDataDictionary.set(
-              this.variantDataArray[i].id,
-              this.variantDataArray[i]
-            );
-          }
-          this.round.setVariantId(this.variantDataArray[0].id);
-        }
+        this.processResponse(httpResponse);
       } catch (errorMessage) {
         success = false;
         console.error(errorMessage);
@@ -166,6 +147,29 @@ export class CGame implements IGame {
       );
     }
     return success;
+  }
+
+  protected processResponse(httpResponse: AxiosResponse): void {
+    const rawData: TRawGameData | TRawErrorData = httpResponse.data;
+    if (rawData.status === "ok" || rawData.status === "available") {
+      this.name = rawData.response.name;
+      this.variantDataArray = rawData.response.variants.map(
+        (rawVariantData) => ({
+          id: rawVariantData.variantId,
+          description: rawVariantData.description,
+          status: rawVariantData.status,
+          startPosition: rawVariantData.startPosition,
+        })
+      );
+      this.variantDataDictionary = new Map<string, TVariantData>();
+      for (let i: number = 0; i < this.variantDataArray.length; i++) {
+        this.variantDataDictionary.set(
+          this.variantDataArray[i].id,
+          this.variantDataArray[i]
+        );
+      }
+      this.round.setVariantId(this.variantDataArray[0].id);
+    }
   }
 
   private async loadPositionData(): Promise<boolean> {
