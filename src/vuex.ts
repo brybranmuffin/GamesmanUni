@@ -29,6 +29,8 @@ export default new Vuex.Store({
     serverDataSource: (state) => state.app.getServerDataSource(),
     games: (state) => state.app.getGames(),
     game: (state) => state.app.getGame(),
+    puzzles: (state) => state.app.getPuzzles(),
+    puzzle: (state) => state.app.getPuzzle(),
     updates: (state) => state.app.getUpdates(),
 
     // CGame.ts

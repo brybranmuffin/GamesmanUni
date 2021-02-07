@@ -38,6 +38,12 @@ export default new Router({
     },
     /* TODO: General game type? */
     {
+      path: "/puzzles/:gameId/variants/:variantId",
+      name: "puzzle",
+      component: () =>
+        import(/* webpackChunkName: "game" */ "./views/Puzzle.vue"),
+    },
+    {
       path: "/games/:gameId/variants/:variantId",
       name: "game",
       component: () =>

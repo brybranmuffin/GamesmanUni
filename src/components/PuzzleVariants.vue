@@ -8,7 +8,7 @@
         v-for="variantData in variantDataArray"
         :key="variantData.id"
         :to="{
-          name: 'game',
+          name: 'puzzle',
           params: { gameId: gameId, variantId: variantData.id },
         }"
       >
